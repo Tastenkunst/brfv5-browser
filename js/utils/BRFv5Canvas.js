@@ -14,6 +14,11 @@ const setupCanvas       = (width, height, node) => {
     if(typeof resizeElement === "function") {
 
       resizeElement(_image);
+
+    } else {
+
+      _image.style.top  = "calc(50% - " + ( height * 0.50 ) + "px)";
+      _image.style.left = "calc(50% - " + ( width  * 0.50 ) + "px)";
     }
   }
 

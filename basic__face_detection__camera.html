@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/basic.css">
+
+  <title>Beyond Reality Face SDK - BRFv5 - Browser/Javascript - basic setup: camera</title>
+
+  <script src="./js/utils/BRFv5SimpleResize.js"></script>
+  <script src="./js/utils/BRFv5SimplePreloader.js"></script>
+  <script src="./js/utils/BRFv5SimpleStats.js"></script>
+
+  <script src="./js/utils/BRFv5Camera.js"></script>
+  <script src="./js/utils/BRFv5Canvas.js"></script>
+  <script src="./js/utils/BRFv5BasicInit.js"></script>
+
+  <!-- Take a look at the comments in basic__face_detection__example.js -->
+  <script src="./js/examples/basic__face_detection__example.js"></script>
+
+  <script>
+
+    const onLoadedBRFv5   = async () => {
+
+      if(typeof setupPreloader === "function") setupPreloader(document.body);
+
+      const isBRFv5Ready = await initBRFv5("com.tastenkunst.examples.browser.camera", "BRFv5_JS_tk170619_v5.0.0a_trial_68l_max");
+      const cameraData   = await startCamera({ width:  640, height:  480, frameRate: 30 });
+
+      if(cameraData && isBRFv5Ready) {
+
+        configureExample(isBRFv5Ready._brfv5Manager, isBRFv5Ready._brfv5Config, cameraData.width, cameraData.height);
+        startTracking(trackExample, cameraData.video, setupCanvas(cameraData.width, cameraData.height, document.body), false);
+
+        if(typeof setupStats === "function") setupStats(document.body);
+      }
+    };
+
+  </script>
+
+  <script async onload="onLoadedBRFv5()" type="text/javascript" src="./js/brfv5/BRFv5_JS_tk170619_v5.0.0a_trial.js"></script>
+
+</head>
+
+<body>
+
+<a id="_exit" href="https://www.beyond-reality-face.com" target="_blank" style="width: 128px; height: 128px">
+  <img src="images/brfv5_logo.png" alt="brfv5 logo" style="width: 128px; height: 128px">
+</a>
+
+</body>
+
+</html>

@@ -2,6 +2,7 @@
 
 const _text                 = document.createElement("div");
 const _times                = [];
+let   _avgTime              = 0.0;
 
 const setupStats            = (node) => {
 
@@ -9,6 +10,7 @@ const setupStats            = (node) => {
 
     node.appendChild(_text);
 
+    _text.style.position    = "absolute";
     _text.style.top         = "8px";
     _text.style.left        = "8px";
     _text.style.color       = "#00a0ff";
@@ -23,11 +25,11 @@ const writeStats            = (time) => {
 
   if(_times.length > 33) { _times.shift(); }
 
-  let avgTime = 0;
-  for(let i = 0; i < _times.length; i++) { avgTime += _times[i]; }
-  avgTime /= _times.length;
+  _avgTime = 0;
+  for(let i = 0; i < _times.length; i++) { _avgTime += _times[i]; }
+  _avgTime /= _times.length;
 
-  _text.innerHTML = avgTime.toFixed(2);
+  _text.innerHTML = _avgTime.toFixed(2);
 };
 
 if (typeof exports === "object" && typeof module === "object") {

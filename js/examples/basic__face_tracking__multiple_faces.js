@@ -15,15 +15,6 @@ const trackExample      = (brfv5Manager, brfv5Config, canvas) => {
   simpleTrackAndDraw(brfv5Manager, brfv5Config); // BRFv5BasicInit
 };
 
-if (typeof exports === "object" && typeof module === "object") {
-
-  module.exports = { configureExample, trackExample };
-
-} else if (typeof define === "function" && define["amd"]) {
-
-  define([], function() { return { configureExample, trackExample }; });
-
-} else if (typeof exports === "object") {
-
-  exports["BRFv5Init"] = { configureExample, trackExample };
-}
+if (typeof exports === "object" && typeof module === "object") { module.exports = { configureExample, trackExample };
+} else if (typeof define === "function" && define["amd"]) {      define([], function() { return { configureExample, trackExample }; });
+} else if (typeof exports === "object") {                        exports["BRFv5Init"] = { configureExample, trackExample }; }

@@ -2,21 +2,25 @@
 
 const configureExample  = (brfv5Manager, brfv5Config, imageWidth, imageHeight) => {
 
+  // Set defaults:
   configureBRFv5(imageWidth, imageHeight, 1, 3, false);
 
   console.log("basic__face_detection__example: configureExample");
 
   // In this example we only want to detect faces, not track them.
+
   // Detected faces are drawn as rectangles. All detected faces are drawn in blue.
   // If enough rectangles are detected in a certain area, a merged rectangle (drawn in yellow) is being created.
-  // Restricting the region of interest, the area that is actually searched, is useful.
+  // Restricting the region of interest, the area that is actually searched, helps performance.
 
   // First, let's disable the face tracking part.
   brfv5Config.enableFaceTracking          = false;
 
-  let __config_restrictDetectionToCenter  = true;  // Restricts the region of interest to the center of the image.
+  // Try different configurations by setting them true or false.
+
+  let __config_restrictDetectionToCenter  = true; // Restricts the region of interest to the center of the image.
   let __config_onlyDetectNearFaces        = false; // Only detect faces that are close to the camera
-  let __config_onlyDetectFarFaces         = false && !__config_onlyDetectNearFaces; // ... or further away.
+  let __config_onlyDetectFarFaces         = false  && !__config_onlyDetectNearFaces; // ... or further away.
   let __config_filterNoise                = true;  // Filter all rectangles that don't belong to a merged rectangle.
 
   let inputSize                           = imageWidth > imageHeight ? imageHeight : imageWidth;
