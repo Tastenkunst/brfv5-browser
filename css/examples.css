@@ -1,5 +1,0 @@
-html, body      { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; background-color: #ffffff; }
-video, canvas   { display: block; position: absolute; }
-#_exit          { width: 128px; height: 128px; position: absolute; bottom: 10px; left: 10px; }
-#_exit > img    { width: 128px; height: 128px; position: absolute; }
-p               { margin-left: 12px; }

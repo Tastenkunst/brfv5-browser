@@ -3,31 +3,80 @@
 <head>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/examples.css">
+  <meta name="viewport" content="width=device-width, initial-scale=0.75">
+  <title>Beyond Reality Face SDK - BRFv5 - Face Tracking for Browser/JavaScript</title>
 
-  <title>Beyond Reality Face SDK - BRFv5 - Browser/JavaScript - examples list</title>
+  <style>
+
+    html, body {
+      margin: 0; padding: 0; width: 100vw; height: 100vw; background-color: #ffffff;
+      -ms-text-size-adjust: none; -moz-text-size-adjust: none; -webkit-text-size-adjust: none;
+    }
+
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="./js/highlight/highlight_tomorrow.css">
+  <script src="./js/highlight/highlight.pack.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="./css/brfv5_examples.css">
+  <link rel="stylesheet" type="text/css" href="./css/brfv5_select.css">
 
 </head>
 
 <body>
 
-<!-- Each of these examples include an example specific tracking function and, if necessary, a custom configuration. -->
-<!-- If you are new to BRFv5, please start with camera__face_tracking__single_face and read the included comments. -->
+<div id="__brfv5" class="__brfv5">
 
-<ul>
-  <li><a href="examples/camera__face_detection.html"                          target="_self">camera__face_detection.html</a></li>
-  <li><a href="examples/camera__face_tracking__blink_detection.html"          target="_self">camera__face_tracking__blink_detection.html</a></li>
-  <li><a href="examples/camera__face_tracking__single_face.html"              target="_self">camera__face_tracking__single_face.html</a></li>
-  <li><a href="examples/camera__face_tracking__single_face__center_roi.html"  target="_self">camera__face_tracking__single_face__center_roi.html</a></li>
-  <li><a href="examples/camera__face_tracking__single_face__minimal.html"     target="_self">camera__face_tracking__single_face__minimal.html</a></li>
-  <li><a href="examples/camera__face_tracking__multi_face.html"               target="_self">camera__face_tracking__multi_face.html</a></li>
+  <div class="fixed tr10 ontop o6">
 
-</ul>
+    <div class="__brfv5_select_container">
 
-<a id="_exit" href="https://www.beyond-reality-face.com" target="_blank" style="width: 128px; height: 128px">
-  <img src="images/brfv5_logo.png" alt="brfv5 logo" style="width: 128px; height: 128px">
-</a>
+      <label for="__brfv5_select"></label>
+
+      <select id="__brfv5_select">
+
+        <!-- See js/examples/, all examples use the camera setup (setup__camera__example.js) -->
+
+        <option value="face_detection__basics">Basics of Face Detection</option>
+        <option value="face_detection__details">Details of Face Detection</option>
+        <option value="face_tracking__basics" selected>Basics of Face Tracking</option>
+        <option value="face_tracking__choose_model">Choosing The Right Model</option>
+        <option value="face_tracking__track_two_faces">Track Two Faces</option>
+        <option value="face_tracking__region_of_interest">Region of Interest</option>
+        <option value="face_tracking__blink_detection">Blink Detection</option>
+        <option value="face_tracking__smile_detection">Smile Detection</option>
+        <option value="face_tracking__yawn_detection">Yawn Detection</option>
+        <option value="face_tracking__face_extended">Extended Face Shape</option>
+        <option value="face_tracking__coloring_libs">Coloring Lips</option>
+        <option value="face_tracking__png_overlay#1">PNG Overlay (1 face)</option>
+        <option value="face_tracking__png_overlay#2">PNG Overlay (2 faces)</option>
+
+        <!-- if face_tracking__threejs_overlay is manually set selected, 42l type model
+         will be loaded and some examples won't work as intended. Choose any other
+         examples (selected) to also set 68l type model for ThreeJS. -->
+
+        <option value="face_tracking__threejs_overlay">ThreeJS Overlay</option>
+        <option value="face_tracking__texture_overlay">Texture Overlay</option>
+        <option value="face_tracking__texture_exporter">Texture Exporter</option>
+        <option value="face_tracking__texture_overlay_extended">Texture Overlay Extended</option>
+        <option value="face_tracking__texture_exporter_extended">Texture Exporter Extended</option>
+        <option value="face_tracking__face_swap">Face Swap (2 faces)</option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+  <div id='__brfv5__code_container' class="swl mc bg-pb">
+
+    <pre><code class="javascript" id="__brfv5_code"></code></pre>
+
+  </div>
+</div>
+
+<script type="module" id="scriptSwitch"></script>
+<script src="js/examples/switch__example.js"></script>
 
 </body>
 

@@ -1,0 +1,109 @@
+/**
+ * BRFv5 - Texture Overlay Extended (Using the extended face shape with forehead)
+ *
+ * A png texture is drawn on top of the face (using UV data and triangles/polygons).
+ *
+ * To create a texture, you can either use the existing texture (save image from
+ * face_texture_overlay.html) as a basis for your asset and use the same UV data.
+ *
+ * Or you could capture a new facial image and save the UV data of that captured
+ * image as shown in brfv5_texture_overlay_extended.js (See Texture Exporter example).
+ *
+ * Works only with a 68l model.
+ */
+
+import { setupCameraExample }           from './setup__camera__example.js'
+
+import { faceExtendedTrianglesWithMouthWhole74l }   from '../utils/utils__face_triangles.js'
+
+import { BRFv5FaceExtended }            from '../utils/utils__face_extended.js'
+import { brfv5 }                        from '../brfv5/brfv5__init.js'
+
+import { loadTextureOverlays }          from '../ui/ui__texture_overlay.js'
+import { updateByFace }                 from '../ui/ui__texture_overlay.js'
+
+import { faceTextures }                 from '../../assets/brfv5_texture_overlay_extended.js'
+
+const faceExtended = new BRFv5FaceExtended()
+
+const _textures = [
+  {
+    // The texture image data, either Base64 string or url.
+    tex:        faceTextures.grumpy.tex, // or faceTextures.marcel.tex
+
+    // Array of Numbers between 0.0 and 1.0, [x, y, x, y, ..., x, y],
+    // with 74 * 2 length.
+    uv:         faceTextures.grumpy.uv, // or faceTextures.marcel.uv
+
+    // Choose the correct triangles for your texture, with or without
+    // whole for the mouth. 68l for normal face shape, 74l for extended
+    // face shape.
+    triangles:  faceExtendedTrianglesWithMouthWhole74l,
+
+    alpha:      1.00,
+
+    // 0.25 for alpha: 1.00, 0.15 for alpha: less than 0.50, try to find the best setting.
+    overdraw:   0.25,
+
+    // How often a texture is drawn on top of each other, 2 removes most antialiased edges.
+    numPasses:  2,
+
+    // See utils__blend_modes.js > blendOnto()
+    blendMode:  null
+  }
+];
+
+const numFacesToTrack = _textures.length
+
+export const configureExample = (brfv5Config) => {
+
+  brfv5Config.faceTrackingConfig.numFacesToTrack = numFacesToTrack
+
+  loadTextureOverlays(_textures)
+}
+
+export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
+
+  const ctx   = canvas.getContext('2d')
+  const faces = brfv5Manager.getFaces()
+
+  for(let i = 0; i < faces.length; i++) {
+
+    const face = faces[i]
+
+    if(face.state === brfv5.BRFv5State.FACE_TRACKING) {
+
+      faceExtended.update(face)
+
+      updateByFace(ctx, faceExtended, i, true)
+
+    } else {
+
+      updateByFace(ctx, null, i, false)
+    }
+  }
+
+  return true
+}
+
+const exampleConfig = {
+
+  onConfigure:              configureExample,
+  onTracking:               handleTrackingResults
+}
+
+// run() will be called automatically.
+// Exporting it allows re-running the configuration from within other scripts.
+
+let timeoutId = -1
+
+export const run = () => {
+
+  clearTimeout(timeoutId)
+  setupCameraExample(exampleConfig)
+}
+
+timeoutId = setTimeout(() => { run() }, 1000)
+
+export default { run }
+

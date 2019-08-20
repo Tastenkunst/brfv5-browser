@@ -1,0 +1,100 @@
+{
+	"metadata": {
+		"version": 4.5,
+		"type": "Object",
+		"generator": "Object3D.toJSON"
+	},
+	"geometries": [
+		{
+			"uuid": "55E02F49-37CE-4488-A56C-77D2647E1B68",
+			"type": "TorusKnotBufferGeometry",
+			"radius": 1,
+			"tube": 0.4,
+			"tubularSegments": 64,
+			"radialSegments": 8,
+			"p": 2,
+			"q": 3
+		}],
+	"materials": [
+		{
+			"uuid": "00771E69-8850-4608-96C9-1207D39CB2A3",
+			"type": "MeshPhongMaterial",
+			"name": "metal_silver_blank",
+			"color": 8750469,
+			"emissive": 4079422,
+			"specular": 0,
+			"shininess": 5000,
+			"envMap": "50E2568E-9445-4F73-899D-407B4395076D",
+			"reflectivity": 0.75,
+			"transparent": true,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		}],
+	"textures": [
+		{
+			"uuid": "50E2568E-9445-4F73-899D-407B4395076D",
+			"name": "evn_map_common_bright.png",
+			"mapping": 305,
+			"repeat": [1,1],
+			"offset": [0,0],
+			"center": [0,0],
+			"rotation": 0,
+			"wrap": [1001,1001],
+			"format": 1023,
+			"minFilter": 1008,
+			"magFilter": 1006,
+			"anisotropy": 1,
+			"flipY": true,
+			"image": "0B8E4D9E-51FA-4726-85F4-1B9B325407A4"
+		}],
+	"images": [
+		{
+			"uuid": "0B8E4D9E-51FA-4726-85F4-1B9B325407A4",
+			"url": "https://tastenkunst.s3.amazonaws.com/demos/b24/artov4/textures/evn_map_common_bright.jpg"
+		}],
+	"object": {
+		"uuid": "576FF86A-35B8-4F63-850E-BA2B4AA6CE6D",
+		"type": "Group",
+		"name": "earrings",
+		"renderOrder": 10,
+		"userData": {
+			"showElements": true
+		},
+		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+		"children": [
+			{
+				"uuid": "9E15EE24-C7C4-40BE-895F-245F1F02E0F1",
+				"type": "Group",
+				"name": "silver",
+				"renderOrder": 10,
+				"userData": {
+					"showElements": true
+				},
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+				"children": [
+					{
+						"uuid": "A8E429FD-51EC-48CB-B6AD-64ADFEDD5399",
+						"type": "Mesh",
+						"name": "TorusKnot",
+						"userData": {
+							"showElements": true
+						},
+						"matrix": [0.913,0,3.894,0,0,4,0,0,-3.894,0,0.913,0,69.518,-48.86,91.888,1],
+						"geometry": "55E02F49-37CE-4488-A56C-77D2647E1B68",
+						"material": "00771E69-8850-4608-96C9-1207D39CB2A3"
+					},
+					{
+						"uuid": "BA62A780-DE90-4B4F-A216-25DEEA430464",
+						"type": "Mesh",
+						"name": "TorusKnot",
+						"userData": {
+							"showElements": true
+						},
+						"matrix": [2.713,0.079,-2.938,0,-0.531,3.946,-0.384,0,2.891,0.651,2.687,0,-69.818,-48.86,91.888,1],
+						"geometry": "55E02F49-37CE-4488-A56C-77D2647E1B68",
+						"material": "00771E69-8850-4608-96C9-1207D39CB2A3"
+					}]
+			}]
+	}
+}
