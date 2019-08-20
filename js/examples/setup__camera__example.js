@@ -2,6 +2,7 @@ import { log, error }                                                       from
 import { SystemUtils }                                                      from '../utils/utils__system.js'
 import { ScaleMode }                                                        from '../utils/utils__resize.js'
 import { drawFaceTrackingResultsDefault }                                   from '../utils/utils__draw_tracking_results.js'
+import { getURLParameter }                                                  from '../utils/utils__get_params.js'
 
 import { loadBRFv5Model}                                                    from '../brfv5/brfv5__init.js'
 import { configureInput, configureFaceTracking, configureNumFacesToTrack }  from '../brfv5/brfv5__configure.js'
@@ -19,7 +20,8 @@ import { mountFullscreen, setFullscreenLayoutSize, setFullscreenState }     from
 
 const _name                     = 'BRFv5CameraExample'
 
-let _modelName                  = SystemUtils.isMobileOS ? '68l_min' : '68l_max'
+let _modelType                  = getURLParameter(window.location.search, 'type') === '42l' ? '42l' : '68l'
+let _modelName                  = SystemUtils.isMobileOS ? _modelType + '_min' : _modelType + '_max'
 let _brfv5Manager               = null
 let _brfv5Config                = null
 
@@ -103,7 +105,10 @@ export const configureCameraExample = (config) => {
   _onConfigure = config.onConfigure
   _onTracking  = config.onTracking
 
-  if(config.modelName)                { _modelName                = config.modelName }
+  // GET parameter type overwrites example config.
+  const modelType = getURLParameter(window.location.search, 'type')
+
+  if(!modelType && config.modelName)  { _modelName                = config.modelName }
   if(config.numFacesToTrack)          { _numFacesToTrack          = config.numFacesToTrack }
   if(config.enableDynamicPerformance) { _enableDynamicPerformance = config.enableDynamicPerformance }
   if(config.numTrackingPasses)        { _numTrackingPasses        = config.numTrackingPasses }
