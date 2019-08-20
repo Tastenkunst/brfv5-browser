@@ -67,24 +67,37 @@ const getURLParameter = (url, param) => {
 const preselectThreeJS = () => {
 
   const modelType = getURLParameter(window.location.search, 'type')
+  const selectContainers = document.getElementsByClassName('__brfv5_select_container')
+
+  let setSelected = false
 
   if(modelType === '42l') {
-
-    const selectContainers = document.getElementsByClassName('__brfv5_select_container');
 
     for(let i = 0; i < selectContainers.length; i++) {
 
       const selectContainer = selectContainers[i]
-      const select = selectContainer.getElementsByTagName('select')[0];
+      const select = selectContainer.getElementsByTagName('select')[0]
 
       for(let j = 0; j < select.options.length; j++) {
 
         if(select.options[j].value.toLowerCase().includes('threejs')) {
 
           select.selectedIndex = j
+          setSelected = true
           break;
         }
       }
+    }
+  }
+
+  if(!setSelected) {
+
+    for(let i = 0; i < selectContainers.length; i++) {
+
+      const selectContainer = selectContainers[i]
+      const select = selectContainer.getElementsByTagName('select')[0]
+
+      select.selectedIndex = 2
     }
   }
 }
