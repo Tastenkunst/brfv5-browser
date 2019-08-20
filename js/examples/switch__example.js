@@ -43,6 +43,54 @@ const switchExample = (selectedExample) => {
   }
 }
 
+const getURLParameter = (url, param) => {
+
+  if(url.includes('?')) {
+
+    const splitURL    = url.split("?")
+    const splitParams = splitURL[1].split("&")
+
+    for(let i = 0; i < splitParams.length; i++) {
+
+      const splitParam = splitParams[i].split("=")
+
+      if(splitParam[0] === param) {
+
+        return splitParam[1]
+      }
+    }
+  }
+
+  return null
+}
+
+const preselectThreeJS = () => {
+
+  const modelType = getURLParameter(window.location.search, 'type')
+
+  if(modelType === '42l') {
+
+    const selectContainers = document.getElementsByClassName('__brfv5_select_container');
+
+    for(let i = 0; i < selectContainers.length; i++) {
+
+      const selectContainer = selectContainers[i]
+      const select = selectContainer.getElementsByTagName('select')[0];
+
+      for(let j = 0; j < select.options.length; j++) {
+
+        if(select.options[j].value.toLowerCase().includes('threejs')) {
+
+          select.selectedIndex = j
+          break;
+        }
+      }
+    }
+  }
+}
+
+preselectThreeJS()
+
 const onChangeExample = () => {
 
   switchExample(document.getElementById('__brfv5_select').value)
@@ -52,7 +100,7 @@ onChangeExample()
 
 const setupSelect = () => {
 
-  const selectContainers = document.getElementsByClassName('__brfv5_select_container');
+  const selectContainers = document.getElementsByClassName('__brfv5_select_container')
 
   for(let i = 0; i < selectContainers.length; i++) {
 
