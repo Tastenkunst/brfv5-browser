@@ -16,8 +16,8 @@ Read the EULA (eula.txt) carefully before using the SDK. You can try and test th
 
 + [Github (all repos)](https://github.com/Tastenkunst)
 + [Demo (platform: browser)](https://tastenkunst.github.io/brfv5-browser/)
-+ [Docs / API](https://tastenkunst.github.io/brfv5_docs/)
-+ [What can I do with it?](https://tastenkunst.github.io/brfv4_docs/what_can_i_do_with_it.html)
++ [Docs / API - TODO](https://tastenkunst.github.io/brfv5-browser/)
++ [What can I do with it? - TODO](https://tastenkunst.github.io/brfv4_docs/what_can_i_do_with_it.html)
 + [Website](https://www.beyond-reality-face.com)
 + [Facebook](https://www.facebook.com/BeyondRealityFace)
 + [Twitter](https://twitter.com/tastenkunst)
@@ -32,3 +32,5 @@ To test BRFv5 simply visit the JavaScript demo site:
 
 ##### HTML5/Browser – JavaScript (works in Chrome/Firefox/Edge 16/Opera/Safari 11)
 Run the index.html on a local server.
+
+### REST - TODO
