@@ -26,7 +26,7 @@ Read the EULA (eula.txt) carefully before using the SDK. You can try and test th
 
 To test BRFv5 simply visit the JavaScript demo site:
 
-+ https://tastenkunst.github.io/brfv4_javascript_examples/
++ https://tastenkunst.github.io/brfv5-browser/
 
 ### Which platforms does it support?
 
