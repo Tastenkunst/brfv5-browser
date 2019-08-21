@@ -15,11 +15,12 @@
  * Works only with a 68l model (normal an extended).
  */
 
-import { setupCameraExample }               from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
 import { brfv5 }                            from '../brfv5/brfv5__init.js'
 
-import { updateByFace }                     from '../ui/ui__texture_exporter.js'
+import { updateByFace }                     from '../ui/ui__exporter__texture.js'
 
 export const configureExample = (brfv5Config) => {
 
@@ -62,10 +63,18 @@ let timeoutId = -1
 export const run = () => {
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)
 
 export default { run }
-

@@ -12,7 +12,8 @@
  * Only a 68 landmarks model is able to detect blinks.
  */
 
-import { setupCameraExample }               from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
 import { drawCircles }                      from '../utils/utils__canvas.js'
 import { drawFaceDetectionResults }         from '../utils/utils__draw_tracking_results.js'
@@ -131,10 +132,18 @@ let timeoutId = -1
 export const run = () => {
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)
 
 export default { run }
-

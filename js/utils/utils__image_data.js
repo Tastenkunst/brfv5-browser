@@ -8,13 +8,13 @@ const enterFrameObjects = []
 let _onEnterFrame       = null
 let _onExitFrame        = null
 
-const getEFOByVideo = (video) => {
+const getEFOByInput = (input) => {
 
   for(let i = 0; i < enterFrameObjects.length; i++) {
 
     const efo = enterFrameObjects[i]
 
-    if(efo && efo.video === video) {
+    if(efo && efo.input === input) {
 
       return efo
     }
@@ -31,13 +31,13 @@ export const removeAllEnterFrame = () => {
 
     const efo = enterFrameObjects[i]
 
-    efo.video             = null
+    cancelAnimationFrame(efo.requestId)
+
+    efo.input             = null
     efo.activeImageData   = null
     efo.activeCanvas      = null
     efo.inactiveImageData = null
     efo.inactiveCanvas    = null
-
-    cancelAnimationFrame(efo.requestId)
 
     efo.requestId         = 0
   }
@@ -55,32 +55,31 @@ export const addOnExitFrame = (onExitFrame) => {
   _onExitFrame = onExitFrame
 }
 
-export const addEnterFrame = (video, canvas0, canvas1, drawFunction, onImageData) => {
+export const addEnterFrame = (input, canvas0, canvas1, drawFunction, onImageData, doOnlyOnce) => {
 
   const prefix = logName + 'addEnterFrame: '
 
   log(prefix)
 
-  if( !isVideo(video, prefix + 'Provide a HTML video element to add the enterframe event.') ||
-      !isCanvas(canvas0, prefix + 'Provide a HTML canvas element to add the enterframe event.') ||
+  if( !isCanvas(canvas0, prefix + 'Provide a HTML canvas element to add the enterframe event.') ||
       !isCanvas(canvas1, prefix + 'Provide a HTML canvas element to add the enterframe event.')) {
 
     return false
   }
 
-  let efo = getEFOByVideo(video)
+  let efo = getEFOByInput(input)
 
   if(efo) {
 
-    warn(prefix + 'video already has an enterframe event attached.')
+    warn(prefix + 'input already has an enterframe event attached.')
 
   } else {
 
-    log(prefix + 'attach enterframe event to video.')
+    log(prefix + 'attach enterframe event to input.')
 
     efo = {
 
-      video:                  video,
+      input:                  input,
       activeCanvas:           canvas0,
       activeImageData:        null,
       inactiveCanvas:         canvas1,
@@ -92,7 +91,11 @@ export const addEnterFrame = (video, canvas0, canvas1, drawFunction, onImageData
         if(_onEnterFrame) _onEnterFrame()
 
         cancelAnimationFrame(efo.requestId)
-        efo.requestId = requestAnimationFrame(efo.onEnterFrame)
+
+        if(!doOnlyOnce) {
+
+          efo.requestId = requestAnimationFrame(efo.onEnterFrame)
+        }
 
         const canvasActive    = efo.activeCanvas
         const canvasInactive  = efo.inactiveCanvas
@@ -103,7 +106,7 @@ export const addEnterFrame = (video, canvas0, canvas1, drawFunction, onImageData
         const ctxActive       = canvasActive.getContext('2d')
         const ctxInactive     = canvasInactive.getContext('2d')
 
-        drawFunction(ctxInactive, cw, ch, efo.video)
+        drawFunction(ctxInactive, cw, ch, efo.input)
 
         if(efo.activeImageData === null) {
 
@@ -118,7 +121,7 @@ export const addEnterFrame = (video, canvas0, canvas1, drawFunction, onImageData
 
         const rowStep         = imageInactive.height / 6
 
-        let foundDifference   = false
+        let foundDifference   = canvasActive === canvasInactive
 
         for(let row = rowStep; row < imageInactive.height && !foundDifference; row += rowStep) { // going through 4/5 rows
 

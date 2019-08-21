@@ -23,7 +23,7 @@ export const drawFaceTrackingResultsDefault = (brfv5Manager, brfv5Config, canvas
 
   const ctx = canvas.getContext('2d')
 
-  let doDrawFaceDetection = !brfv5Config.enableFaceTracking
+  let doDrawFaceDetection = !brfv5Config.enableFaceTracking || true
 
   if(brfv5Config.enableFaceTracking) {
 

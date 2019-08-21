@@ -15,7 +15,8 @@
 
 import { error }                            from '../utils/utils__logging.js'
 
-import { setupCameraExample }               from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
 import { SystemUtils }                      from '../utils/utils__system.js'
 import { drawCircles }                      from '../utils/utils__canvas.js'
@@ -23,16 +24,33 @@ import { drawFaceDetectionResults }         from '../utils/utils__draw_tracking_
 
 import { brfv5 }                            from '../brfv5/brfv5__init.js'
 
+import { configureNumFacesToTrack }         from '../brfv5/brfv5__configure.js'
+import { setROIsWholeImage }                from '../brfv5/brfv5__configure.js'
+
 import { colorPrimary }                     from '../utils/utils__colors.js'
 
-import { render3DScene }                    from '../threejs/threejs_setup.js'
+import { render3DScene, setNumFaces }       from '../threejs/threejs__setup.js'
 
-import { load3DModel, load3DOcclusionModel }from '../threejs/threejs_loading.js'
-import { set3DModelByName }                 from '../threejs/threejs_loading.js'
+import { load3DModel, load3DOcclusionModel }from '../threejs/threejs__loading.js'
+import { set3DModelByName }                 from '../threejs/threejs__loading.js'
 
-import { updateByFace }                     from '../ui/ui__threejs_overlay.js'
+import { hide3DModels, updateByFace }       from '../ui/ui__overlay__threejs.js'
+
+let numFacesToTrack = 1 // set be run()
 
 export const configureExample = (brfv5Config) => {
+
+  configureNumFacesToTrack(brfv5Config, numFacesToTrack)
+
+  if(numFacesToTrack > 1) {
+
+    setROIsWholeImage(brfv5Config)
+  }
+
+  setNumFaces(numFacesToTrack)
+
+  brfv5Config.faceTrackingConfig.enableFreeRotation = false
+  brfv5Config.faceTrackingConfig.maxRotationZReset  = 34.0
 
   // Load the occlusion model (an invisible head). It hides anything behind it.
 
@@ -51,6 +69,7 @@ export const configureExample = (brfv5Config) => {
     './assets/3d/textures/', null).then(() => {
 
     set3DModelByName()
+    render3DScene()
 
   }).catch((e) => {
 
@@ -65,6 +84,8 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
 
   let doDrawFaceDetection = false
 
+  hide3DModels()
+
   for(let i = 0; i < faces.length; i++) {
 
     const face = faces[i];
@@ -74,10 +95,15 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
       drawCircles(ctx, face.landmarks, colorPrimary, 2.0);
 
       // Update the 3d model placement.
+
       updateByFace(ctx, face, i, true)
 
-      // ... and then render the 3d scene.
-      render3DScene()
+      if(window.selectedSetup === 'image') {
+
+        updateByFace(ctx, face, i, true)
+        updateByFace(ctx, face, i, true)
+        updateByFace(ctx, face, i, true)
+      }
 
     } else {
 
@@ -86,6 +112,10 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
 
       doDrawFaceDetection = true;
     }
+
+    // ... and then render the 3d scene.
+    render3DScene()
+
   }
 
   if(doDrawFaceDetection) {
@@ -105,7 +135,7 @@ const exampleConfig = {
   // If true, numTrackingPasses and enableFreeRotation will be set depending
   // on the apps CPU usage. See brfv5__dynamic_performance.js for more insights.
 
-  enableDynamicPerformance: true,
+  enableDynamicPerformance: window.selectedSetup === 'camera',
 
   onConfigure:              configureExample,
   onTracking:               handleTrackingResults,
@@ -116,13 +146,23 @@ const exampleConfig = {
 
 let timeoutId = -1
 
-export const run = () => {
+export const run = (_numFacesToTrack = 1) => {
+
+  numFacesToTrack = _numFacesToTrack
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)
 
 export default { run }
-

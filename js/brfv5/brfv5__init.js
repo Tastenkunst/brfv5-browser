@@ -1,9 +1,9 @@
 // Set the BRFv5 import and library name here.
 // Also set your own appId for reference.
 
-import { brfv5Module }          from './BRFv5_JS_tk200819_v5.0.0b3_trial.js'
+import { brfv5Module }          from './BRFv5_JS_tk200819_v5.0.0b6_trial.js'
 
-const _libraryName              = 'BRFv5_JS_tk200819_v5.0.0b3_trial'
+const _libraryName              = 'BRFv5_JS_tk200819_v5.0.0b6_trial'
 const _appId                    = 'brfv5.browser.examples' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
 
 export const brfv5              = {}

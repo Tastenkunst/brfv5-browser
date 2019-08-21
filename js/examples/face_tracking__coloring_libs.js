@@ -10,7 +10,8 @@
  * Works only with a 68l model.
  */
 
-import { setupCameraExample }               from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
 import { drawCircles }                      from '../utils/utils__canvas.js'
 import { drawFillTriangles }                from '../utils/utils__canvas.js'
@@ -21,9 +22,19 @@ import { colorWhitePale, colorOrange }      from '../utils/utils__colors.js'
 
 import { brfv5 }                            from '../brfv5/brfv5__init.js'
 
+import { configureNumFacesToTrack }         from '../brfv5/brfv5__configure.js'
+import { setROIsWholeImage }                from '../brfv5/brfv5__configure.js'
+
+let numFacesToTrack = 1 // set be run()
+
 export const configureExample = (brfv5Config) => {
 
-  // No special configuration necessary, defaults are fine.
+  configureNumFacesToTrack(brfv5Config, numFacesToTrack)
+
+  if(numFacesToTrack > 1) {
+
+    setROIsWholeImage(brfv5Config)
+  }
 }
 
 export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
@@ -67,10 +78,21 @@ const exampleConfig = {
 
 let timeoutId = -1
 
-export const run = () => {
+export const run = (_numFacesToTrack = 1) => {
+
+  numFacesToTrack = _numFacesToTrack
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)

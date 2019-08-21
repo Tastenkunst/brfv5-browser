@@ -10,7 +10,18 @@ export const isVideo = (video, errorMsg) => {
   }
 
   return true
+}
 
+export const isImage = (image, errorMsg) => {
+
+  if(!image || !video.naturalWidth) {
+
+    error(errorMsg)
+
+    return false
+  }
+
+  return true
 }
 
 export const isCanvas = (canvas, errorMsg) => {
@@ -25,4 +36,4 @@ export const isCanvas = (canvas, errorMsg) => {
   return true
 }
 
-export default { isVideo, isCanvas }
+export default { isVideo, isImage, isCanvas }

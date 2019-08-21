@@ -48,27 +48,29 @@
 
 <div id="__brfv5" class="__brfv5">
 
-  <div class="fixed tr10 ontop o6">
+  <div class="fixed tr10 ontop o6" style="width: 256px">
 
     <div class="__brfv5_select_container">
 
-      <label for="__brfv5_select"></label>
+      <label for="__brfv5_select_example"></label>
 
-      <select id="__brfv5_select">
+      <select id="__brfv5_select_example">
 
         <!-- See js/examples/, all examples use the camera setup (setup__camera__example.js) -->
 
-        <option value="face_detection__basics">Basics of Face Detection</option>
-        <option value="face_detection__details">Details of Face Detection</option>
-        <option value="face_tracking__basics" selected>Basics of Face Tracking</option>
+        <option value="face_detection__basics">Face Detection (Basics)</option>
+        <option value="face_detection__details">Face Detection (Details)</option>
+        <option value="face_tracking__track_one_face" selected>Face Tracking (1 face)</option>
+        <option value="face_tracking__track_two_faces">Face Tracking (2 faces)</option>
         <option value="face_tracking__choose_model">Choosing The Right Model</option>
-        <option value="face_tracking__track_two_faces">Track Two Faces</option>
         <option value="face_tracking__region_of_interest">Region of Interest</option>
-        <option value="face_tracking__blink_detection">Blink Detection</option>
-        <option value="face_tracking__smile_detection">Smile Detection</option>
-        <option value="face_tracking__yawn_detection">Yawn Detection</option>
-        <option value="face_tracking__face_extended">Extended Face Shape</option>
-        <option value="face_tracking__coloring_libs">Coloring Lips</option>
+        <option value="face_tracking__blink_detection">Blink Detection (1 face)</option>
+        <option value="face_tracking__smile_detection">Smile Detection (1 face)</option>
+        <option value="face_tracking__yawn_detection">Yawn Detection (1 face)</option>
+        <option value="face_tracking__face_extended#1">Extended Face Shape (1 face)</option>
+        <option value="face_tracking__face_extended#2">Extended Face Shape (2 faces)</option>
+        <option value="face_tracking__coloring_libs#1">Coloring Lips (1 face)</option>
+        <option value="face_tracking__coloring_libs#2">Coloring Lips (2 faces)</option>
         <option value="face_tracking__png_overlay#1">PNG Overlay (1 face)</option>
         <option value="face_tracking__png_overlay#2">PNG Overlay (2 faces)</option>
 
@@ -76,18 +78,53 @@
          will be loaded and some examples won't work as intended. Choose any other
          examples (selected) to also set 68l type model for ThreeJS. -->
 
-        <option value="face_tracking__threejs_overlay">ThreeJS Overlay</option>
-        <option value="face_tracking__texture_overlay">Texture Overlay</option>
+        <option value="face_tracking__threejs_overlay#1">ThreeJS Overlay (1 face)</option>
+        <option value="face_tracking__threejs_overlay#2">ThreeJS Overlay (2 faces)</option>
+        <option value="face_tracking__texture_overlay#1">Texture Overlay (1 face)</option>
+        <option value="face_tracking__texture_overlay#2">Texture Overlay (2 faces)</option>
         <option value="face_tracking__texture_exporter">Texture Exporter</option>
-        <option value="face_tracking__texture_overlay_extended">Texture Overlay Extended</option>
+        <option value="face_tracking__texture_overlay_extended#1">Texture Overlay Extended (1 face)</option>
+        <option value="face_tracking__texture_overlay_extended#2">Texture Overlay Extended (2 faces)</option>
         <option value="face_tracking__texture_exporter_extended">Texture Exporter Extended</option>
         <option value="face_tracking__face_swap">Face Swap (2 faces)</option>
+
+        <option value="face_tracking__image__basics">Basics of Face Tracking (Image)</option>
+
+      </select>
+
+    </div>
+
+    <div class="__brfv5_select_container">
+
+      <label for="__brfv5_select_setup"></label>
+
+      <select id="__brfv5_select_setup">
+
+        <option value="camera" selected>Setup Camera</option>
+        <option value="image">Setup Image</option>
+
+      </select>
+
+    </div>
+
+    <div class="__brfv5_select_container">
+
+      <label for="__brfv5_select_image"></label>
+
+      <select id="__brfv5_select_image">
+
+        <option value="brfv5_portrait_marcel.jpg" selected>Marcel (1 face)</option>
+        <option value="brfv5_portrait_chris.jpg">Chris (1 face)</option>
+        <option value="brfv5_two_faces.jpg">Marcel and Chris (2 faces)</option>
+        <option value="brfv5_woman_old.jpg">Old woman (1 faces)</option>
+        <option value="brfv5_women_young.jpg">Two women (2 faces)</option>
 
       </select>
 
     </div>
 
   </div>
+
 
   <div id='__brfv5__code_container' class="swl mc bg-pb">
 
@@ -96,8 +133,7 @@
   </div>
 </div>
 
-<script type="module" id="scriptSwitch"></script>
-<script src="js/examples/switch__example.js"></script>
+<script src="js/examples/setup__selects.js"></script>
 
 </body>
 

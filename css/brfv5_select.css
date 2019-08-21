@@ -1,9 +1,9 @@
 /* https://www.w3schools.com/howto/howto_custom_select.asp */
 /* The container must be positioned relative: */
-.__brfv5_select_container         { font-family: Arial, sans-serif; width: 256px }
+.__brfv5_select_container         { font-family: Arial, sans-serif; width: 256px; position: relative; display: inline; float: right; margin-bottom: 10px }
 .__brfv5_select_container select  { display: none; }
 
-.select-selected                  { background-color: #00a0ff }
+.select-selected                  { background-color: #00a0ff; font-weight: bold }
 
 /* Style the arrow inside the select element: */
 .select-selected::after {

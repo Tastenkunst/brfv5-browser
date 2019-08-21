@@ -11,14 +11,19 @@ let _brfv5Config                  = null
 
 export const enableDynamicPerformance = (brfv5Manager, brfv5Config) => {
 
-  _enableDynamicPerformance = true
+  _enableDynamicPerformance       = true
 
-  _brfv5Manager             = brfv5Manager
-  _brfv5Config              = brfv5Config
+  _brfv5Manager                   = brfv5Manager
+  _brfv5Config                    = brfv5Config
 
   configureFaceTracking(_brfv5Config, startParams.numTrackingPasses, startParams.enableFreeRotation)
 
   _brfv5Manager.configure(_brfv5Config)
+}
+
+export const disableDynamicPerformance = () => {
+
+  _enableDynamicPerformance       = false
 }
 
 let _timeStart                    = 0
@@ -122,4 +127,10 @@ const dynamicPerformance = () => {
   }
 }
 
-export default { enableDynamicPerformance, onEnterFrame, onExitFrame, averageTime }
+export default {
+  enableDynamicPerformance,
+  disableDynamicPerformance,
+  onEnterFrame,
+  onExitFrame,
+  averageTime
+}

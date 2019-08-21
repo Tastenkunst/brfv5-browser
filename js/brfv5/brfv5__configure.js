@@ -27,11 +27,11 @@ export const configureNumFacesToTrack = (brfv5Config, numFacesToTrack) => {
   }
 }
 
-export const configureInput = (brfv5Config, imageWidth, imageHeight) => {
+export const configureCameraInput = (brfv5Config, imageWidth, imageHeight) => {
 
-  log(_name + ': configureInput:', imageWidth, imageHeight)
+  log(_name + ': configureCameraInput:', imageWidth, imageHeight)
 
-  const inputSize = imageWidth > imageHeight ? imageHeight : imageWidth
+  const inputSize = Math.min(imageWidth, imageHeight)
 
   // Setup image data dimensions
 
@@ -49,16 +49,21 @@ export const configureInput = (brfv5Config, imageWidth, imageHeight) => {
     (imageWidth  - roiSize) * 0.5, (imageHeight - roiSize) * 0.5, roiSize, roiSize
   )
 
-  brfv5Config.faceDetectionConfig.minFaceSize = 144 * sizeFactor
-  brfv5Config.faceDetectionConfig.maxFaceSize = 480 * sizeFactor
+  brfv5Config.faceDetectionConfig.minFaceSize             = 144 * sizeFactor
+  brfv5Config.faceDetectionConfig.maxFaceSize             = 480 * sizeFactor
 
   if(imageWidth < imageHeight) {
 
     // Portrait mode: probably smartphone, faces tend to be closer to the camera, processing time is an issue,
     // so save a bit of time and increase minFaceSize.
 
-    brfv5Config.faceDetectionConfig.minFaceSize = 240 * sizeFactor
+    brfv5Config.faceDetectionConfig.minFaceSize           = 240 * sizeFactor
   }
+
+  brfv5Config.faceDetectionConfig.faceSizeIncrease        = 24
+  brfv5Config.faceDetectionConfig.stepSize                = 0
+  brfv5Config.faceDetectionConfig.minNumNeighbors         = 12
+  brfv5Config.faceDetectionConfig.filterNoise             = true
 
   // Set face tracking region of interest and parameters scaled to the image base size.
 
@@ -72,16 +77,69 @@ export const configureInput = (brfv5Config, imageWidth, imageHeight) => {
   brfv5Config.faceTrackingConfig.minFaceScaleStart        =  50.0  * sizeFactor
   brfv5Config.faceTrackingConfig.maxFaceScaleStart        = 320.0  * sizeFactor
 
+  brfv5Config.faceTrackingConfig.maxRotationXStart        = 15.0
+  brfv5Config.faceTrackingConfig.maxRotationYStart        = 25.0
+  brfv5Config.faceTrackingConfig.maxRotationZStart        = 20.0
+
+  brfv5Config.faceTrackingConfig.confidenceThresholdStart = 0.800
+
   brfv5Config.faceTrackingConfig.minFaceScaleReset        =  35.0  * sizeFactor
   brfv5Config.faceTrackingConfig.maxFaceScaleReset        = 420.0  * sizeFactor
+
+  brfv5Config.faceTrackingConfig.maxRotationXReset        = 35.0
+  brfv5Config.faceTrackingConfig.maxRotationYReset        = 45.0
+  brfv5Config.faceTrackingConfig.maxRotationZReset        = 34.0
 
   brfv5Config.faceTrackingConfig.confidenceThresholdReset = 0.001
 
   brfv5Config.faceTrackingConfig.enableStabilizer         = true
 
-  brfv5Config.faceTrackingConfig.maxRotationXReset        = 35.0
-  brfv5Config.faceTrackingConfig.maxRotationYReset        = 45.0
-  brfv5Config.faceTrackingConfig.maxRotationZReset        = 34.0
+}
+
+export const configureImageInput = (brfv5Config, imageWidth, imageHeight) => {
+
+  log(_name + ': configureImageInput:', imageWidth, imageHeight)
+
+  const inputSize = imageWidth > imageHeight ? imageHeight : imageWidth
+
+  // Setup image data dimensions
+
+  brfv5Config.imageConfig.inputWidth  = imageWidth
+  brfv5Config.imageConfig.inputHeight = imageHeight
+
+  setROIsWholeImage(brfv5Config)
+
+  const sizeFactor      = inputSize / 480.0
+
+  // Set face detection region of interest and parameters scaled to the image base size.
+
+  brfv5Config.faceDetectionConfig.minFaceSize             = 48  * sizeFactor
+  brfv5Config.faceDetectionConfig.maxFaceSize             = 480 * sizeFactor
+
+  brfv5Config.faceDetectionConfig.faceSizeIncrease        = 24
+  brfv5Config.faceDetectionConfig.stepSize                = 0
+  brfv5Config.faceDetectionConfig.minNumNeighbors         = 12
+  brfv5Config.faceDetectionConfig.filterNoise             = true
+
+  brfv5Config.faceTrackingConfig.minFaceScaleStart        = 24.0    * sizeFactor
+  brfv5Config.faceTrackingConfig.maxFaceScaleStart        = 1480.0  * sizeFactor
+
+  brfv5Config.faceTrackingConfig.maxRotationXStart        = 999.0
+  brfv5Config.faceTrackingConfig.maxRotationYStart        = 999.0
+  brfv5Config.faceTrackingConfig.maxRotationZStart        = 999.0
+
+  brfv5Config.faceTrackingConfig.confidenceThresholdStart = 0.000
+
+  brfv5Config.faceTrackingConfig.minFaceScaleReset        = 16.0    * sizeFactor
+  brfv5Config.faceTrackingConfig.maxFaceScaleReset        = 1480.0  * sizeFactor
+
+  brfv5Config.faceTrackingConfig.maxRotationXReset        = 999.0
+  brfv5Config.faceTrackingConfig.maxRotationYReset        = 999.0
+  brfv5Config.faceTrackingConfig.maxRotationZReset        = 999.0
+
+  brfv5Config.faceTrackingConfig.confidenceThresholdReset = 0.000
+
+  brfv5Config.faceTrackingConfig.enableStabilizer         = true
 }
 
 export const setROIsWholeImage = (brfv5Config) => {
@@ -149,4 +207,11 @@ export const deepCopyBRFv5Config = (src, dst) => {
   dst.enableFaceTracking                                  = src.enableFaceTracking
 }
 
-export default { configureInput, configureFaceTracking, configureNumFacesToTrack, setROIsWholeImage, deepCopyBRFv5Config }
+export default {
+  configureCameraInput,
+  configureImageInput,
+  configureFaceTracking,
+  configureNumFacesToTrack,
+  setROIsWholeImage,
+  deepCopyBRFv5Config
+}

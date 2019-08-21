@@ -9,12 +9,14 @@
  *
  **/
 
-import { setupCameraExample }             from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
-import { configureNumFacesToTrack }       from '../brfv5/brfv5__configure.js'
-import { setROIsWholeImage }              from '../brfv5/brfv5__configure.js'
+import { configureNumFacesToTrack }         from '../brfv5/brfv5__configure.js'
+import { setROIsWholeImage }                from '../brfv5/brfv5__configure.js'
 
-import { loadPNGOverlays, updateByFace }  from '../ui/ui__png_overlay.js'
+import { loadPNGOverlays, updateByFace }    from '../ui/ui__overlay__png.js'
+import { hidePNGOverlay }                   from '../ui/ui__overlay__png.js'
 
 const _images       = [
   { url: './assets/brfv5_img_lion.png',    alpha: 0.66,
@@ -39,12 +41,16 @@ export const configureExample = (brfv5Config) => {
 
     loadedImagesOnce = true
     loadPNGOverlays(_images)
+
+    const __brfv5__stage = document.getElementById('__brfv5__stage')
   }
 }
 
 export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
 
   const faces = brfv5Manager.getFaces()
+
+  hidePNGOverlay()
 
   for(let i = 0; i < faces.length; i++) {
 
@@ -69,12 +75,28 @@ const exampleConfig = {
   onTracking:               handleTrackingResults,
 }
 
+// run() will be called automatically.
+// Exporting it allows re-running the configuration from within other scripts.
+
+let timeoutId = -1
+
 export const run = (_numFacesToTrack = 1) => {
+
   numFacesToTrack = _numFacesToTrack
-  setupCameraExample(exampleConfig)
+
+  clearTimeout(timeoutId)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
-run(_images.length)
+timeoutId = setTimeout(() => { run(_images.length) }, 1000)
 
 export default { run }
-

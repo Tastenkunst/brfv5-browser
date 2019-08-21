@@ -12,14 +12,19 @@
  * Works only with a 68l model.
  */
 
-import { setupCameraExample }               from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
 import { faceTrianglesWithMouthWhole68l }   from '../utils/utils__face_triangles.js'
 
 import { brfv5 }                            from '../brfv5/brfv5__init.js'
 
-import { loadTextureOverlays }              from '../ui/ui__texture_overlay.js'
-import { updateByFace }                     from '../ui/ui__texture_overlay.js'
+import { configureNumFacesToTrack }         from '../brfv5/brfv5__configure.js'
+import { setROIsWholeImage }                from '../brfv5/brfv5__configure.js'
+
+import { loadTextureOverlays }              from '../ui/ui__overlay__texture.js'
+import { clearTextures }                    from '../ui/ui__overlay__texture.js'
+import { updateByFace }                     from '../ui/ui__overlay__texture.js'
 
 import { faceTextures }                     from '../../assets/brfv5_texture_overlay.js'
 
@@ -50,11 +55,16 @@ const _textures = [
   }
 ];
 
-const numFacesToTrack = _textures.length
+let numFacesToTrack = 1 // set be run()
 
 export const configureExample = (brfv5Config) => {
 
-  brfv5Config.faceTrackingConfig.numFacesToTrack = numFacesToTrack
+  configureNumFacesToTrack(brfv5Config, numFacesToTrack)
+
+  if(numFacesToTrack > 1) {
+
+    setROIsWholeImage(brfv5Config)
+  }
 
   loadTextureOverlays(_textures)
 }
@@ -63,6 +73,8 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
 
   const ctx   = canvas.getContext('2d')
   const faces = brfv5Manager.getFaces()
+
+  clearTextures()
 
   for(let i = 0; i < faces.length; i++) {
 
@@ -92,13 +104,23 @@ const exampleConfig = {
 
 let timeoutId = -1
 
-export const run = () => {
+export const run = (_numFacesToTrack = 1) => {
+
+  numFacesToTrack = _numFacesToTrack
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)
 
 export default { run }
-

@@ -9,7 +9,8 @@
  * Works with both model types: 68l and 42l.
  */
 
-import { setupCameraExample }               from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
 import { drawCircles }                      from '../utils/utils__canvas.js'
 import { drawFaceDetectionResults }         from '../utils/utils__draw_tracking_results.js'
@@ -40,6 +41,9 @@ export const configureExample = (brfv5Config) => {
 }
 
 export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
+
+  // Here we draw the first face blue and the second face white.
+  // If no face was tracked, draw the detected rectangles.
 
   const ctx   = canvas.getContext('2d')
   const faces = brfv5Manager.getFaces()
@@ -84,7 +88,16 @@ let timeoutId = -1
 export const run = () => {
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)

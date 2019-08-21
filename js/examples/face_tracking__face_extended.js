@@ -7,7 +7,8 @@
  * are not tracked, but estimated from the other 68 (or 42) landmarks.
  **/
 
-import { setupCameraExample }               from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
 import { drawCircles, drawTriangles }       from '../utils/utils__canvas.js'
 import { drawFaceDetectionResults }         from '../utils/utils__draw_tracking_results.js'
@@ -16,13 +17,24 @@ import { BRFv5FaceExtended }                from '../utils/utils__face_extended.
 import { faceExtendedTriangles74l }         from '../utils/utils__face_triangles.js'
 
 import { brfv5 }                            from '../brfv5/brfv5__init.js'
+
+import { configureNumFacesToTrack }         from '../brfv5/brfv5__configure.js'
+import { setROIsWholeImage }                from '../brfv5/brfv5__configure.js'
+
 import { colorPrimary }                     from '../utils/utils__colors.js'
 
-const faceExtended = new BRFv5FaceExtended()
+const faceExtended  = new BRFv5FaceExtended()
+
+let numFacesToTrack = 1 // set be run()
 
 export const configureExample = (brfv5Config) => {
 
-  // No special configuration necessary, defaults are fine.
+  configureNumFacesToTrack(brfv5Config, numFacesToTrack)
+
+  if(numFacesToTrack > 1) {
+
+    setROIsWholeImage(brfv5Config)
+  }
 }
 
 export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
@@ -72,13 +84,23 @@ const exampleConfig = {
 
 let timeoutId = -1
 
-export const run = () => {
+export const run = (_numFacesToTrack = 1) => {
+
+  numFacesToTrack = _numFacesToTrack
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)
 
 export default { run }
-

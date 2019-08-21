@@ -7,16 +7,17 @@
  * Works only with a 68l model.
  */
 
-import { setupCameraExample }                 from './setup__camera__example.js'
+import { setupExample }                     from './setup__example.js'
+import { trackCamera, trackImage }          from './setup__example.js'
 
-import { drawTexture }                        from '../utils/utils__canvas.js'
-import { faceTrianglesWithMouthWhole68l }     from '../utils/utils__face_triangles.js'
+import { drawTexture }                      from '../utils/utils__canvas.js'
+import { faceTrianglesWithMouthWhole68l }   from '../utils/utils__face_triangles.js'
 
-import { brfv5 }                              from '../brfv5/brfv5__init.js'
+import { brfv5 }                            from '../brfv5/brfv5__init.js'
 
-import { configureFaceTracking }              from '../brfv5/brfv5__configure.js'
-import { configureNumFacesToTrack }           from '../brfv5/brfv5__configure.js'
-import { setROIsWholeImage }                  from '../brfv5/brfv5__configure.js'
+import { configureFaceTracking }            from '../brfv5/brfv5__configure.js'
+import { configureNumFacesToTrack }         from '../brfv5/brfv5__configure.js'
+import { setROIsWholeImage }                from '../brfv5/brfv5__configure.js'
 
 const _extractedFace0   = document.createElement("canvas") // first face texture
 const _extractedFace1   = document.createElement("canvas") // second face texture
@@ -132,11 +133,18 @@ let timeoutId = -1
 export const run = () => {
 
   clearTimeout(timeoutId)
-  setupCameraExample(exampleConfig)
+  setupExample(exampleConfig)
+
+  if(window.selectedSetup === 'image') {
+
+    trackImage('./assets/' + window.selectedImage)
+
+  } else {
+
+    trackCamera()
+  }
 }
 
 timeoutId = setTimeout(() => { run() }, 1000)
 
 export default { run }
-
-
