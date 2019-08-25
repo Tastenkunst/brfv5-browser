@@ -58,7 +58,7 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
 
       const color = i === 0 ? colorPrimary : colorSecondary
 
-      drawCircles(ctx, face.landmarks, color, 2.0)
+      drawCircles(ctx, face.landmarks, color, 3.0)
 
     } else {
 

@@ -40,7 +40,7 @@ export const drawFaceTrackingResultsDefault = (brfv5Manager, brfv5Config, canvas
 
         if(face.landmarks.length === 68) {
 
-          drawTriangles(ctx, face.vertices, faceTriangles68l, 1.0, colorPrimary, 0.4);
+          drawTriangles(ctx, face.vertices, faceTriangles68l, 1.5, colorPrimary, 0.4);
         }
 
         drawCircles(ctx, face.landmarks, colorPrimary, 2.0 * sizeFactor)
