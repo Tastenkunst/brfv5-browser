@@ -3,7 +3,7 @@
 <head>
 
   <meta charset="utf-8">
-  <title>Beyond Reality Face SDK - BRFv5 - Face Tracking for Browser/JavaScript - Minimal Webcam Example</title>
+  <title>Beyond Reality Face SDK - BRFv5 - Face Tracking for Browser/JavaScript - Minimal Webcam Example (no modules)</title>
 
   <style>
     html, body { width: 100%; height: 100%; background-color: #ffffff; margin: 0; padding: 0; overflow: hidden; }
@@ -37,7 +37,7 @@
   // Set the BRFv5 library name here, also set your own appId for reference.
 
   const _libraryName    = 'BRFv5_JS_tk250819_v5.0.0b7_trial'
-  const _appId          = 'brfv5.browser.minimal' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
+  const _appId          = 'brfv5.browser.minimal.nomodules' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
   const brfv5           = {} // The library namespace.
 
   // References to the video and canvas.
@@ -50,7 +50,7 @@
   let _width            = 0
   let _height           = 0
 
-  // loadBRFv5Model and openCamera are being done simultaneously thanks to Promises. Bboth call
+  // loadBRFv5Model and openCamera are being done simultaneously thanks to Promises. Both call
   // configureTracking which only gets executed once both Promises were successful. Once configured
   // trackFaces will do the tracking work and draw the results.
 
@@ -239,7 +239,7 @@
 
   }).catch((e) => { if(e) { console.error('Camera failed: ', e) } })
 
-  loadBRFv5Model('68l_max', './js/brfv5/models/', null,
+  loadBRFv5Model('68l_max', './js/brfv5/models/', _appId,
     (progress) => { console.log(progress) }).then(({ brfv5Manager, brfv5Config }) => {
 
     console.log('loadBRFv5Model: done')
