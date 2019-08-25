@@ -19,7 +19,7 @@ export const mountLogo = (node) => {
     __brfv5__logo.href       = 'https://www.beyond-reality-face.com'
     __brfv5__logo.target     = '_blank'
 
-    __brfv5__img.src         = './images/brfv5_logo.png'
+    __brfv5__img.src         = './assets/ui/brfv5_logo.png'
     __brfv5__img.alt         = 'brfv5 logo'
 
     __brfv5__logo.appendChild(__brfv5__img)

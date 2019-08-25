@@ -33,10 +33,10 @@ export const mountFullscreen = (node) => {
 
     setFullscreenState()
 
-    __brfv5__img_large.src        = './images/baseline-fullscreen-24px.svg'
+    __brfv5__img_large.src        = './assets/ui/baseline-fullscreen-24px.svg'
     __brfv5__img_large.alt        = 'Show Camera Fullscreen in Browser'
 
-    __brfv5__img_small.src        = './images/baseline-fullscreen_exit-24px.svg'
+    __brfv5__img_small.src        = './assets/ui/baseline-fullscreen_exit-24px.svg'
     __brfv5__img_small.alt        = 'Exit Fullscreen'
 
     __brfv5__fullscreen.appendChild(__brfv5__img_large)

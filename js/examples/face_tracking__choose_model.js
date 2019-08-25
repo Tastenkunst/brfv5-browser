@@ -57,7 +57,7 @@ export const run = () => {
 
   if(window.selectedSetup === 'image') {
 
-    trackImage('./assets/' + window.selectedImage)
+    trackImage('./assets/tracking/' + window.selectedImage)
 
   } else {
 

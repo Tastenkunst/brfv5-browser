@@ -87,7 +87,7 @@ export const run = (_numFacesToTrack = 1) => {
 
   if(window.selectedSetup === 'image') {
 
-    trackImage('./assets/' + window.selectedImage)
+    trackImage('./assets/tracking/' + window.selectedImage)
 
   } else {
 

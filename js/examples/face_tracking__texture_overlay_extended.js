@@ -27,7 +27,7 @@ import { loadTextureOverlays }              from '../ui/ui__overlay__texture.js'
 import { clearTextures }                    from '../ui/ui__overlay__texture.js'
 import { updateByFace }                     from '../ui/ui__overlay__texture.js'
 
-import { faceTextures }                     from '../../assets/brfv5_texture_overlay_extended.js'
+import { faceTextures }                     from '../../assets/textures/brfv5_texture_overlay_extended.js'
 
 const faceExtended = new BRFv5FaceExtended()
 
@@ -118,7 +118,7 @@ export const run = (_numFacesToTrack = 1) => {
 
   if(window.selectedSetup === 'image') {
 
-    trackImage('./assets/' + window.selectedImage)
+    trackImage('./assets/tracking/' + window.selectedImage)
 
   } else {
 

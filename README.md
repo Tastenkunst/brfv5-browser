@@ -6,7 +6,7 @@ It is a real-time face detection and face tracking SDK. It analyses image data
 (eg. a camera stream, video stream or a static image) and returns facial landmarks 
 and data to place 3d objects on a face.
 
-![alt text](images/readme_img.jpg "BRFv5 - 68 landmarks, multiple faces, face swap and more.")
+![alt text](assets/ui/readme_img.jpg "BRFv5 - 68 landmarks, multiple faces, face swap and more.")
 
 ### Ready to try!
 
@@ -67,7 +67,8 @@ BRFv5 comes with the following components:
 + Face Detection - finds faces (rectangles) in image data (camera stream, video or still image)
 + Face Tracking - finds 68 facial landmarks/features
 
-![alt text](images/readme_img_2.jpg "BRFv5 - 68 landmarks, face detection")
+![alt text](assets/ui/readme_img_2.jpg "BRFv5 - face tracking, face detection")
+![alt text](brfv5_landmarks.jpg "BRFv5 - 68 landmarks")
 
 All available platform-specific packages have approximately the same content 
 and come with a number of examples to demonstrate the use of the SDK.
