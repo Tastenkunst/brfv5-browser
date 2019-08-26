@@ -1,4 +1,4 @@
-# Beyond Reality Face SDK - v5.0.0b7 (BRFv5 - beta!) - Platform: Browser
+# Beyond Reality Face SDK - v5.0.0 (BRFv5) - Platform: Browser
 
 ### What is BRFv5?
 
@@ -12,9 +12,9 @@ and data to place 3d objects on a face.
 
 Read the EULA (eula.txt) carefully before using the trial SDK. 
 You can try and test the trial SDK free of charge. Before you buy a license, please test 
-the SDK thoroughly to find out whether it fits your project's needs. Once you decide to 
-use BRFv5 commercially, please contact us via email. You will get a separate license 
-agreement, that you must agree to. 
+the SDK thoroughly to see if it meets the requirements of your project. Once you decide to 
+use BRFv5 commercially, please contact us by email. You will receive a separate license 
+agreement, which you must agree to. 
 
 + http://www.tastenkunst.com/#/contact
 
@@ -138,7 +138,7 @@ When will the other platforms be available.
 
 ### Release notes
 
-v5.0.0 - 25th August 2019
+v5.0.0 - 26th August 2019
 
 It's done! After over a year of development Tastenkunst is proud to announce the release of BRFv5.
 
@@ -160,9 +160,7 @@ JavaScript Examples:
 + Coloring Libs
 
 Changes from BRFv4: 
-+ Smaller models: The largest model is now 5MB (instead of 9MB for BRFv4). 
-The smallest for 3D placement is 2,5MB.
++ Smaller models: The largest model is now 5MB (instead of 9MB for BRFv4). The smallest for 3D placement is 2,5MB.
 + Rewrote the whole API to streamline configuration.
-+ Removed: Point Tracking. It was rarely requested and might come as a separate library 
-if there is demand for it.
++ Removed: Point Tracking. It was rarely requested and might come as a separate library if there is demand for it.
 + Removed ASM package: WebAssembly is now widely supported.
