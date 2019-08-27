@@ -11,9 +11,6 @@ const _name                 = 'BRFv5FullscreenButton'
 
 let _isFullscreen           = false
 
-let _width                  = 0
-let _height                 = 0
-
 export const mountFullscreen = (node) => {
 
   log(_name + ': mountFullscreen')
@@ -46,14 +43,6 @@ export const mountFullscreen = (node) => {
   }
 }
 
-export const setSizeFullscreenLayout = (width, height) => {
-
-  log(_name + ': setSizeFullscreenLayout:', width, height)
-
-  _width  = width
-  _height = height
-}
-
 export const setFullscreenState = () => {
 
   __brfv5__img_large.classList.remove('vh')
@@ -72,7 +61,7 @@ export const setFullscreenState = () => {
 
   if(__brfv5__code_container) {
 
-    if(SystemUtils.isMobileOS) { // _width < _height
+    if(SystemUtils.isMobileOS) {
 
       __brfv5__code_container.classList.remove('swl')
       __brfv5__code_container.classList.add('swp')
@@ -110,7 +99,7 @@ export const setFullscreenState = () => {
 
       __brfv5__stage.classList.remove('oh')
 
-      if(SystemUtils.isMobileOS) { // _width < _height
+      if(SystemUtils.isMobileOS) {
 
         // __brfv5__stage.classList.add('swp')
         // __brfv5__stage.classList.add('shp')
@@ -123,6 +112,5 @@ export const setFullscreenState = () => {
 
 export default {
   mountFullscreen,
-  setSizeFullscreenLayout,
   setFullscreenState
 }

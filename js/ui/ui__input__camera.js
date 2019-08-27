@@ -23,9 +23,6 @@ const _lastCameraConstraints    = { width: 640, height: 480, frameRate: 30, faci
 let _scaleMode                  = ScaleMode.PROPORTIONAL_OUTSIDE
 let _isFirstOpenCameraCall      = true
 
-let _width                      = 0 // canvas size depends on video width and height
-let _height                     = 0
-
 export const mountCamera = (node, scaleMode) => {
 
   log(_name + ': mountCamera')
@@ -58,22 +55,22 @@ export const setSizeCamera = (width, height) => {
 
   log(_name + ': setSizeCamera:', width, height)
 
-  _width  = width
-  _height = height
-
-  __brfv5__camera_canvas_0.width  = _width
-  __brfv5__camera_canvas_0.height = _height
-  __brfv5__camera_canvas_1.width  = _width
-  __brfv5__camera_canvas_1.height = _height
+  __brfv5__camera_canvas_0.width  = width
+  __brfv5__camera_canvas_0.height = height
+  __brfv5__camera_canvas_1.width  = width
+  __brfv5__camera_canvas_1.height = height
 
   onResize()
 }
 
 const onResize = () => {
 
-  doResize(__brfv5__input,           _width, _height, _scaleMode)
-  doResize(__brfv5__camera_canvas_0, _width, _height, _scaleMode)
-  doResize(__brfv5__camera_canvas_1, _width, _height, _scaleMode)
+  const width  = __brfv5__camera_canvas_0.width
+  const height = __brfv5__camera_canvas_0.height
+
+  doResize(__brfv5__input,           width, height, _scaleMode)
+  doResize(__brfv5__camera_canvas_0, width, height, _scaleMode)
+  doResize(__brfv5__camera_canvas_1, width, height, _scaleMode)
 }
 
 export const openCamera = (constraints) => {
@@ -94,7 +91,9 @@ export const openCamera = (constraints) => {
 
   return new Promise((resolve, reject) => {
 
-    if(!restartStream) { resolve({ width: _width, height: _height }); return }
+    if(!restartStream) { resolve({
+      width:  __brfv5__input.videoWidth,
+      height: __brfv5__input.videoHeight }); return }
 
     startCamera(__brfv5__input, _lastCameraConstraints).then(({ video }) => {
 

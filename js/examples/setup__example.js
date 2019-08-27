@@ -41,7 +41,7 @@ import { mountTextureExporter, setSizeTextureExporter, hideTextureExporter} from
 import { mountPreloader, onProgress }                                       from '../ui/ui__optional__preloader.js'
 import { mountStats, updateStats }                                          from '../ui/ui__optional__stats.js'
 import { mountLogo }                                                        from '../ui/ui__optional__logo.js'
-import { mountFullscreen, setSizeFullscreenLayout, setFullscreenState }     from '../ui/ui__optional__fullscreen.js'
+import { mountFullscreen, setFullscreenState }                              from '../ui/ui__optional__fullscreen.js'
 
 const _name                     = 'BRFv5Example'
 
@@ -197,7 +197,7 @@ export const trackImage = (path) => {
 
 const setSizeAndInitTracking = (width, height) => {
 
-  log(_name + ': setSizeAndInit: ' + width + 'x' + height)
+  log(_name + ': setSizeAndInitTracking: ' + width + 'x' + height)
 
   _width  = width
   _height = height

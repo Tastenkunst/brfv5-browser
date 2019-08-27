@@ -10,16 +10,12 @@ import { update3DLayout }       from '../threejs/threejs__setup.js'
 import { updateByFace as update3D } from '../threejs/threejs__brfv5_mapping.js'
 import { hideAllBaseNodes }     from '../threejs/threejs__brfv5_mapping.js'
 
-let __brfv5__threejs_overlay    = null // This is the node to mount to.
 const __brfv5__threejs_canvas   = document.createElement('canvas')
 __brfv5__threejs_canvas.id      = '__brfv5__threejs_canvas'
 
 const _name                     = 'BRFv5ThreejsOverlay'
 
 let _scaleMode                  = ScaleMode.PROPORTIONAL_OUTSIDE
-
-let _width                      = 0
-let _height                     = 0
 
 export const mountThreejsOverlay = (node, scaleMode) => {
 
@@ -28,10 +24,10 @@ export const mountThreejsOverlay = (node, scaleMode) => {
   if(node && node.appendChild) {
 
     _scaleMode                        = scaleMode
-    __brfv5__threejs_overlay          = node
+
     __brfv5__threejs_canvas.className = 'bg-t abs vh c'
 
-    __brfv5__threejs_overlay.appendChild(__brfv5__threejs_canvas)
+    node.appendChild(__brfv5__threejs_canvas)
 
     if(create3DScene(__brfv5__threejs_canvas)) {
 
@@ -48,13 +44,10 @@ export const setSizeThreejsOverlay = (width, height) => {
 
   log(_name + ': setSizeThreejsOverlay:', width, height)
 
-  _width  = width
-  _height = height
+  __brfv5__threejs_canvas.width  = width
+  __brfv5__threejs_canvas.height = height
 
-  __brfv5__threejs_canvas.width  = _width
-  __brfv5__threejs_canvas.height = _height
-
-  update3DLayout(_width, _height)
+  update3DLayout(width, height)
 
   onResize()
 }
@@ -80,7 +73,11 @@ export const updateByFace = (cameraCtx, face, index, show) => {
 
 const onResize = () => {
 
-  doResize(__brfv5__threejs_canvas, _width, _height, _scaleMode)
+  doResize(
+    __brfv5__threejs_canvas,
+    __brfv5__threejs_canvas.width,
+    __brfv5__threejs_canvas.height,
+    _scaleMode)
 }
 
 export default {

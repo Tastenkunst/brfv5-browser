@@ -30,8 +30,11 @@ export const startTracking      = (
 
       onImageDataUpdate(imageData, activeCanvas, inactiveCanvas, trackOnlyOnce)
 
-      inactiveCanvas.classList.add('vh')
-      activeCanvas.classList.remove('vh')
+      // inactiveCanvas.classList.add('vh')
+      // activeCanvas.classList.remove('vh')
+
+      inactiveCanvas.style.visibility = 'hidden'
+      activeCanvas.style.visibility = 'visible'
 
     }, trackOnlyOnce);
 }

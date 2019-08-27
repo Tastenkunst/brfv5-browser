@@ -12,9 +12,6 @@ const _name                     = 'BRFv5ImageCanvas'
 
 let _scaleMode                  = ScaleMode.PROPORTIONAL_OUTSIDE
 
-let _width                      = 0 // canvas size depends on image width and height
-let _height                     = 0
-
 export const mountImage = (node, scaleMode) => {
 
   log(_name + ': mountImage')
@@ -44,19 +41,19 @@ export const setSizeImage = (width, height) => {
 
   log(_name + ': setSizeImage:', width, height)
 
-  _width  = width
-  _height = height
-
-  __brfv5__image_canvas.width   = _width
-  __brfv5__image_canvas.height  = _height
+  __brfv5__image_canvas.width   = width
+  __brfv5__image_canvas.height  = height
 
   onResize()
 }
 
 const onResize = () => {
 
-  doResize(__brfv5__input,        _width, _height, _scaleMode)
-  doResize(__brfv5__image_canvas, _width, _height, _scaleMode)
+  const width  = __brfv5__image_canvas.width
+  const height = __brfv5__image_canvas.height
+
+  doResize(__brfv5__input,        width, height, _scaleMode)
+  doResize(__brfv5__image_canvas, width, height, _scaleMode)
 }
 
 export const loadImage = (path) => {

@@ -252,7 +252,7 @@ const largeuint8ArrToString = (uint8arr, callback) => {
   f.readAsText(bb);
 };
 
-const addModelToAllParents = (id, model, parents) => {
+export const addModelToAllParents = (id, model, parents) => {
 
   if(!id || !model || !parents || parents.length === 0) {
 
@@ -261,7 +261,7 @@ const addModelToAllParents = (id, model, parents) => {
     return
   }
 
-  log(_modelInstanceMap)
+  log(logName + '_modelInstanceMap:', _modelInstanceMap)
 
   let modelInstances = _modelInstanceMap[id]
 
@@ -362,7 +362,7 @@ const onLoaded3DResource = (text, id, url, texturePath, onComplete, onError) => 
     }
   } catch(e) {
 
-    error( logName + 'THREE:ObjectLoader: Can\'t parse ' + url + '.', e.message )
+    error( logName + 'THREE.ObjectLoader: Can\'t parse ' + url + '.', e.message )
 
     if(onError) { onError() }
   }
