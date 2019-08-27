@@ -21,13 +21,14 @@ agreement, which you must agree to.
 ### Visit us online.
 
 + [GitHub (all repos)](https://github.com/Tastenkunst)
-+ [Demo (platform: browser)](https://tastenkunst.github.io/brfv5-browser/)
++ [BRFv5 Demo (platform: browser)](https://tastenkunst.github.io/brfv5-browser/)
++ [ARTOv5 - Augmented Reality Try-On based on BRFv5](https://tastenkunst.github.io/brfv5-browser/artov5)
 + [Docs / API - TODO](https://tastenkunst.github.io/brfv5-browser/)
 + [Website](https://www.beyond-reality-face.com)
 + [Facebook](https://www.facebook.com/BeyondRealityFace)
 + [Twitter](https://twitter.com/tastenkunst)
 
-### Getting started.
+### BRFv5 - Getting started.
 
 To test BRFv5 simply visit the JavaScript demo site:
 
@@ -35,7 +36,21 @@ To test BRFv5 simply visit the JavaScript demo site:
 
 Or download this repository from GitHub and run the index.html on a local server.
 
-### Which platforms does it support?
+### ARTOv5 - Getting started.
+
+If you are looking to implement an Augmented Reality Try-On, that places 3d objects
+on to of the face, we got you covered. Try the demo here:
+
++ https://tastenkunst.github.io/brfv5-browser/artov5
+
+It's a Vue.js based web component, can be plugged into any website and is
+easily configurable.
+ 
+See artov5/artov5_static/js/artov5_api.js for what's configurable.
+
+ARTOv5 is available for paying customers.
+
+### Which platforms does BRFv5 support?
 
 #### HTML5/Browser – JavaScript (works in Chrome/Firefox/Edge 16/Opera/Safari 11)
 Run the index.html on a local server.
