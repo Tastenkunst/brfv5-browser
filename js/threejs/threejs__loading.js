@@ -18,6 +18,32 @@ const _modelInstanceMap   = {} // each model id has numFacesToTrack instances to
 let addedDragAndDrop      = false
 let _dragAndDropEnabled   = false
 
+export const set3DModel   = (obj) => {
+
+  log(logName + 'set3DModel', obj)
+
+  prepareModelNodes()
+
+  const parents = t3d.modelNodes
+
+  return new Promise((resolve, reject) => {
+
+    if(obj && (obj.isMesh || obj.isGroup)) {
+
+      if(parents) {
+
+        addModelToAllParents(obj.name, obj, parents)
+      }
+
+      resolve(obj.name)
+
+    } else {
+
+      reject()
+    }
+  })
+}
+
 export const load3DModel  = (url, texturePath, onProgress) => {
 
   log(logName + 'load3DModel', url)
@@ -547,7 +573,7 @@ export default {
   load3DMaterialCollection,
   load3DOcclusionModel,
   load3DModel,
-
+  set3DModel,
   set3DModelByName,
   addDragAndDrop
 }
