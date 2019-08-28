@@ -1,6 +1,6 @@
 const switchSetup = (selectedSetup) => {
 
-  console.log('switchSetup', selectedSetup)
+  console.log('switchSetup', selectedSetup, window.selectedSetup)
 
   if(selectedSetup === 'camera' || selectedSetup === 'image') {
 
@@ -243,6 +243,6 @@ setupSelect(selectExample, switchExample)
 setupSelect(selectSetup, switchSetup)
 setupSelect(selectImage, switchImage)
 
-switchExample(selectExample.value)
+// switchExample(selectExample.value)
 switchSetup(selectSetup.value)
 switchImage(selectImage.value)

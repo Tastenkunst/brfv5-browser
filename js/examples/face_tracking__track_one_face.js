@@ -69,10 +69,10 @@ const exampleConfig = {
   // onConfigure and onTracking are callbacks to setup example specific behaviour, eg.
   // for smile detection, PNG overlay or ThreeJS 3d object placement etc.
   onConfigure:              configureExample,
-  onTracking:               handleTrackingResults,
+  onTracking:               handleTrackingResults
 }
 
-// run() will be called automatically.
+// run() will be called automatically after 1 second, if run isn't called immediately after the script was loaded.
 // Exporting it allows re-running the configuration from within other scripts.
 
 let timeoutId = -1
@@ -92,7 +92,7 @@ export const run = () => {
   }
 }
 
-timeoutId = setTimeout(() => { run() }, 1000)
+timeoutId = setTimeout(function() { run() }, 1000)
 
 export default { run }
 

@@ -138,10 +138,10 @@ const exampleConfig = {
   // modelName: 'fd_only',
 
   onConfigure:  configureExample,
-  onTracking:   handleTrackingResults,
+  onTracking:   handleTrackingResults
 }
 
-// run() will be called automatically.
+// run() will be called automatically after 1 second, if run isn't called immediately after the script was loaded.
 // Exporting it allows re-running the configuration from within other scripts.
 
 let timeoutId = -1

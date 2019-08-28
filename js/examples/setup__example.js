@@ -181,7 +181,7 @@ export const trackCamera = () => {
 
   openCamera()
     .then(({ width, height }) => setSizeAndInitTracking(width, height))
-    .catch((e) => { if(e) { error('CAMERA_FAILED: ', e.msg) } })
+    .catch((e) => { if(e) { error('CAMERA_FAILED: ', e) } })
 }
 
 export const trackImage = (path) => {
@@ -210,7 +210,6 @@ const setSizeAndInitTracking = (width, height) => {
   setSizeTextureExporter(_width, _height)
   setSizePNGOverlay(_width, _height)
   setSizeThreejsOverlay(_width, _height)
-  setSizeFullscreenLayout(_width, _height)
 
   setFullscreenState()
 
