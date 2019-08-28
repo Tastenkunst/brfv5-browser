@@ -22,7 +22,8 @@ agreement, which you must agree to.
 
 + [GitHub (all repos)](https://github.com/Tastenkunst)
 + [BRFv5 Demo (platform: browser)](https://tastenkunst.github.io/brfv5-browser/)
-+ [ARTOv5 - Augmented Reality Try-On based on BRFv5](https://tastenkunst.github.io/brfv5-browser/artov5)
++ [ARTOv5 - Augmented Reality Try-On based on BRFv5](https://artov5.com/)
++ [TPPTv5 - ThreeJS Post Processing Tool for ARTOv5](https://artov5.com/tpptv5/)
 + [Docs / API](https://tastenkunst.github.io/brfv5-docs/)
 + [Website](https://www.beyond-reality-face.com)
 + [Facebook](https://www.facebook.com/BeyondRealityFace)
@@ -41,7 +42,7 @@ Or download this repository from GitHub and run the index.html on a local server
 If you are looking to implement an Augmented Reality Try-On, that places 3d objects
 on to of the face, we got you covered. Try the demo here:
 
-+ https://tastenkunst.github.io/brfv5-browser/artov5
++ https://artov5.com/
 
 It's a Vue.js based web component, can be plugged into any website and is
 easily configurable.
@@ -49,6 +50,13 @@ easily configurable.
 See artov5/artov5_static/js/artov5_api.js for what's configurable.
 
 ARTOv5 is available for paying customers.
+
+Also available is TPPTv5 - ThreeJS Post Processing Tool for ARTOv5.
+
++ https://artov5.com/tpptv5/
+
+It allows you to load 3D models into the ThreeJS editor, place them correctly on a 3D head and
+export those models for ARTOv5. You can also conveniently try on your model within the editor.
 
 ### Which platforms does BRFv5 support?
 
