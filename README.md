@@ -23,7 +23,7 @@ agreement, which you must agree to.
 + [GitHub (all repos)](https://github.com/Tastenkunst)
 + [BRFv5 Demo (platform: browser)](https://tastenkunst.github.io/brfv5-browser/)
 + [ARTOv5 - Augmented Reality Try-On based on BRFv5](https://tastenkunst.github.io/brfv5-browser/artov5)
-+ [Docs / API - TODO](https://tastenkunst.github.io/brfv5-browser/)
++ [Docs / API](https://tastenkunst.github.io/brfv5-docs/)
 + [Website](https://www.beyond-reality-face.com)
 + [Facebook](https://www.facebook.com/BeyondRealityFace)
 + [Twitter](https://twitter.com/tastenkunst)
