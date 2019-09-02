@@ -242,7 +242,7 @@ export const addDragAndDrop = (add, texturePath, onComplete, onError) => {
           const filename = file.name
           const extension = filename.split( '.' ).pop().toLowerCase()
 
-          if(extension === 'json') {
+          if(extension === 'json' || extension === 'artov5') {
 
             const reader = new FileReader()
 
@@ -376,7 +376,7 @@ const onLoaded3DResource = (text, id, url, texturePath, onComplete, onError) => 
 
     if(url.endsWith('.brfv5') || url.endsWith('.artov5')) {
 
-      largeuint8ArrToString(brfv5['process'](new Uint8Array(text)), function(fileContent){
+      largeuint8ArrToString(brfv5['process'](new Uint8Array(text)), function(fileContent) {
 
         handleLoaded3DJson(JSON.parse( fileContent ), id, url, texturePath, onComplete, onError)
 
