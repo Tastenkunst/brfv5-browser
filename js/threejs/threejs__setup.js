@@ -5,7 +5,7 @@ import { error }                            from '../utils/utils__logging.js'
 import { SystemUtils }                      from '../utils/utils__system.js'
 
 import { Scene, PerspectiveCamera, WebGLRenderer, Group,
-  AmbientLight, DirectionalLight, Vector3 } from './three.module.js'
+  AmbientLight, DirectionalLight, Vector3 } from './three.module.v109.js'
 
 export const t3d = {
 

@@ -7,7 +7,7 @@ import { brfv5 }                            from '../brfv5/brfv5__init.js'
 import { log, error }                       from '../utils/utils__logging.js'
 import { toRadian }                         from '../utils/utils__geom.js'
 
-import { ObjectLoader,  FileLoader }        from './three.module.js'
+import { ObjectLoader,  FileLoader }        from './three.module.v109.js'
 
 const logName             = 'threejs_loading: '
 
