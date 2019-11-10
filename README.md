@@ -1,4 +1,4 @@
-# Beyond Reality Face SDK - v5.0.1 (BRFv5) - Platform: Browser
+# Beyond Reality Face SDK - v5.0.2 (BRFv5) - Platform: Browser
 
 ### What is BRFv5?
 
@@ -160,6 +160,10 @@ When will the other platforms be available.
 + We plan to work on the other example projects until the end of 2019.
 
 ### Release notes
+
+v5.0.2 - 10th November 2019
+
++ Version bump for emscripten to v1.39.2 - fastcomp
 
 v5.0.1 - 11th September 2019
 
