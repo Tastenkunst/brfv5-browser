@@ -1,4 +1,4 @@
-# Beyond Reality Face SDK - v5.0.2 (BRFv5) - Platform: Browser
+# Beyond Reality Face SDK - v5.1.0 (BRFv5) - Platform: Browser
 
 ### What is BRFv5?
 
@@ -160,6 +160,13 @@ When will the other platforms be available.
 + We plan to work on the other example projects until the end of 2019.
 
 ### Release notes
+
+v5.1.0 - 14th November 2019
+
++ BRFv5 is now 40% faster.
++ v5.1.0 are not compatible with v5.0.x.
++ Model files are not structured in chunks instead of _min, _medium, _max. Load any number of chunks from
+4 to 8 chunks (lower is possible, but accuracy won't be great).
 
 v5.0.2 - 10th November 2019
 
