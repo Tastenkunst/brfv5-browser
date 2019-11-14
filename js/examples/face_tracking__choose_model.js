@@ -42,7 +42,8 @@ const exampleConfig = {
   // That's why we only load 68l. min for mobile, max for desktop.
   // BRFv5 can't reinitialize with a different model, so choose wisely.
 
-  modelName: SystemUtils.isMobileOS ? '68l_min' : '68l_max'
+  modelName:                '68l',
+  numChunksToLoad:          SystemUtils.isMobileOS ? 4 : 8,
 }
 
 // run() will be called automatically after 1 second, if run isn't called immediately after the script was loaded.

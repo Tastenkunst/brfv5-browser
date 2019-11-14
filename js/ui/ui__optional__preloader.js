@@ -84,7 +84,11 @@ export const setProgress = (url, loaded, total) => {
 
 export const getProgress = () => { return _progress.target }
 
+let idHidePreloader = -1;
+
 export const onProgress = (progress) => {
+
+  clearTimeout(idHidePreloader)
 
   // log(_name + ': onProgress:', progress)
 
@@ -96,7 +100,8 @@ export const onProgress = (progress) => {
 
   if(overallProgress >= 1.00) {
 
-    hidePreloader()
+    setTimeout(hidePreloader, 500)
+
   }
 }
 

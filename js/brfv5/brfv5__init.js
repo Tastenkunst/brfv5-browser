@@ -1,9 +1,9 @@
 // Set the BRFv5 import and library name here.
 // Also set your own appId for reference.
 
-import { brfv5Module }          from './brfv5_js_tk101119_v5.0.2_trial.js'
+import { brfv5Module }          from './brfv5_js_tk141119_v5.1.0_trial.js'
 
-const _libraryName              = 'brfv5_js_tk101119_v5.0.2_trial'
+const _libraryName              = 'brfv5_js_tk141119_v5.1.0_trial.brfv5'
 const _appId                    = 'brfv5.browser.examples' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
 
 export const brfv5              = {}
@@ -11,7 +11,8 @@ export const brfv5              = {}
 let _brfv5Manager               = null
 let _brfv5Config                = null
 
-export const loadBRFv5Model     = (modelName, pathToModels = '', appId = null, onProgress = null) => {
+// numChunksToLoad: can be anything from 4 to 8.
+export const loadBRFv5Model     = (modelName, numChunksToLoad, pathToModels = '', appId = null, onProgress = null) => {
 
   if(!modelName) { throw 'Please provide a modelName.' }
 
@@ -26,7 +27,9 @@ export const loadBRFv5Model     = (modelName, pathToModels = '', appId = null, o
       try {
 
         brfv5.appId             = appId ? appId : _appId
-        brfv5.binaryLocation    = pathToModels + _libraryName + '_' + modelName + '.brfv5'
+        brfv5.binaryLocation    = pathToModels + _libraryName
+        brfv5.modelLocation     = pathToModels + modelName + '_c'
+        brfv5.modelChunks       = numChunksToLoad // 4, 6, 8
         brfv5.binaryProgress    = onProgress
         brfv5.binaryError       = (e) => { reject(e) }
         brfv5.onInit            = (brfv5Manager, brfv5Config) => {

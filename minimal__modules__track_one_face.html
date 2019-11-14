@@ -63,7 +63,7 @@
 
   }).catch((e) => { if(e) { console.error('Camera failed: ', e) } })
 
-  loadBRFv5Model('68l_max', './js/brfv5/models/', _appId,
+  loadBRFv5Model('68l', 8, './js/brfv5/models/', _appId,
     (progress) => { console.log(progress) }).then(({ brfv5Manager, brfv5Config }) => {
 
     console.log('loadBRFv5Model: done')

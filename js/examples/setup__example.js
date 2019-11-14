@@ -50,11 +50,12 @@ const _name                     = 'BRFv5Example'
 // the use of the 68l model type, but the 42l is only really
 // suitable for the ThreeJS example and other examples
 // will fail to work properly.
-const _modelType                = getURLParameter(window.location.search, 'type') === '42l' ? '42l' : '68l'
 
 // _modelName might be overwritten by the example config,
 // but is only loaded once for the first example.
-let _modelName                  = SystemUtils.isMobileOS ? _modelType + '_min' : _modelType + '_max'
+
+let _modelName                  = getURLParameter(window.location.search, 'type') === '42l' ? '42l' : '68l'
+let _numChunksToLoad            = SystemUtils.isMobileOS ? 4 : 8
 
 // _brfv5Manager and _brfv5Config will be set once after the
 // library was loaded successfully.
@@ -144,7 +145,7 @@ export const setupExample = (config = null) => {
   mountLogo(stage)
   mountFullscreen(stage)
 
-  loadBRFv5Model(_modelName, './js/brfv5/models/', null, onProgress)
+  loadBRFv5Model(_modelName, _numChunksToLoad, './js/brfv5/models/', null, onProgress)
     .then(({ brfv5Manager, brfv5Config }) => {
 
       log(_name + ': loadBRFv5Model: done')
@@ -168,6 +169,7 @@ export const setExampleConfigValues = (config) => {
   const modelType = getURLParameter(window.location.search, 'type')
 
   if(!modelType && config.modelName)  { _modelName                = config.modelName }
+  if(config.numChunksToLoad >= 4)     { _numChunksToLoad          = config.numChunksToLoad }
   if(config.numFacesToTrack >= 0)     { _numFacesToTrack          = config.numFacesToTrack }
   if(config.enableDynamicPerformance) { _enableDynamicPerformance = config.enableDynamicPerformance }
   if(config.numTrackingPasses)        { _numTrackingPasses        = config.numTrackingPasses }

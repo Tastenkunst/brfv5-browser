@@ -60,7 +60,8 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
 const exampleConfig = {
 
   // See face_tracking__choose_model.js for more info about the models.
-  modelName:                SystemUtils.isMobileOS ? '68l_min' : '68l_max',
+  modelName:                '68l',
+  numChunksToLoad:          SystemUtils.isMobileOS ? 4 : 8,
 
   // If true, numTrackingPasses and enableFreeRotation will be set dynamically depending
   // on the app's CPU usage. See brfv5__dynamic_performance.js for more insights.

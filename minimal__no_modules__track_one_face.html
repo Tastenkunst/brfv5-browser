@@ -30,13 +30,13 @@
 <video  id="_webcam" style="display: none;" playsinline></video>
 <canvas id="_imageData"></canvas>
 
-<script src="./js/brfv5/brfv5_js_tk101119_v5.0.2_trial_no_modules.js"></script>
+<script src="./js/brfv5/brfv5_js_tk141119_v5.1.0_trial_no_modules.js"></script>
 
 <script>
 
   // Set the BRFv5 library name here, also set your own appId for reference.
 
-  const _libraryName    = 'brfv5_js_tk101119_v5.0.2_trial'
+  const _libraryName    = 'brfv5_js_tk141119_v5.1.0_trial.brfv5'
   const _appId          = 'brfv5.browser.minimal.nomodules' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
   const brfv5           = {} // The library namespace.
 
@@ -54,7 +54,7 @@
   // configureTracking which only gets executed once both Promises were successful. Once configured
   // trackFaces will do the tracking work and draw the results.
 
-  const loadBRFv5Model  = (modelName, pathToModels = '', appId = null, onProgress = null) => {
+  const loadBRFv5Model  = (modelName, numChunksToLoad, pathToModels = '', appId = null, onProgress = null) => {
 
     console.log('loadBRFv5Model')
 
@@ -71,7 +71,9 @@
         try {
 
           brfv5.appId             = appId ? appId : _appId
-          brfv5.binaryLocation    = pathToModels + _libraryName + '_' + modelName + '.brfv5'
+          brfv5.binaryLocation    = pathToModels + _libraryName
+          brfv5.modelLocation     = pathToModels + modelName + '_c'
+          brfv5.modelChunks       = numChunksToLoad // 4, 6, 8
           brfv5.binaryProgress    = onProgress
           brfv5.binaryError       = (e) => { reject(e) }
           brfv5.onInit            = (brfv5Manager, brfv5Config) => {
@@ -239,7 +241,7 @@
 
   }).catch((e) => { if(e) { console.error('Camera failed: ', e) } })
 
-  loadBRFv5Model('68l_max', './js/brfv5/models/', _appId,
+  loadBRFv5Model('68l', 8, './js/brfv5/models/', _appId,
     (progress) => { console.log(progress) }).then(({ brfv5Manager, brfv5Config }) => {
 
     console.log('loadBRFv5Model: done')

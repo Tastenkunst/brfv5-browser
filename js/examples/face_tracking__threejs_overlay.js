@@ -130,7 +130,8 @@ const exampleConfig = {
 
   // See face_tracking__choose_model.js for more info about the models.
 
-  modelName:                SystemUtils.isMobileOS ? '42l_min' : '42l_max',
+  modelName:                '42l',
+  numChunksToLoad:          SystemUtils.isMobileOS ? 4 : 8,
 
   // If true, numTrackingPasses and enableFreeRotation will be set depending
   // on the apps CPU usage. See brfv5__dynamic_performance.js for more insights.
