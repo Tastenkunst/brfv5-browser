@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Beyond Reality Face SDK - BRFv5 - Face Tracking for Browser/JavaScript - Minimal WebWorker Example (no modules)</title>
+
+  <style>
+    html, body { width: 100%; height: 100%; background-color: #ffffff; margin: 0; padding: 0; overflow: hidden; }
+    canvas {position: absolute; }
+  </style>
+</head>
+
+<body>
+
+<!--
+
+  WebWorker example.
+
+  The UI side includes the webcam video as well as two
+  canvases, one for the image data and one for drawing the results.
+
+  In this main thread we activate the camera and draw the stream to the imageData canvas.
+  The pixel data is send to the worker for analysis.
+
+  The UI side waits for the results of the last sent pixel data before sending new data.
+
+  The worker will send the results once it's finished.
+  The webcam image will be slightly out of sync with the results, of course.
+
+-->
+
+<video  id="_webcam" style="display: none;" playsinline></video>
+<canvas id="_imageData"></canvas>
+<canvas id="_resultData"></canvas>
+
+<script>
+
+  if(!window.Worker) { throw "No worker support" }
+
+  const worker = new Worker("./js/worker/setup__worker.js")
+
+  worker.addEventListener("error", e => console.error(e), false)
+
+  const sendSize = function() {
+
+    const sizeData = new Uint32Array(2)
+    sizeData.set([_width, _height])
+
+    worker.postMessage(sizeData.buffer, [sizeData.buffer])
+  }
+
+  worker.addEventListener('message', function(e) {
+
+    // console.log("js message", e)
+
+    if(e.data === "trackFaces") {
+
+      // start signal, brf lib is ready.
+      trackFaces()
+
+    } else {
+
+      // Got results (vertices) for the last sent pixel data. Draw it.
+
+      _resultDataCtx.clearRect(0, 0, _width, _height);
+
+      drawVertices(_resultDataCtx, new Float32Array(e.data), '#00a0ff', 2.0)
+
+      _gotResults = true // unlock
+    }
+
+  }, false)
+
+  // References to the video and canvases.
+  const _webcam         = document.getElementById('_webcam')
+  const _imageData      = document.getElementById('_imageData')
+  const _resultData     = document.getElementById('_resultData')
+
+  let _imageDataCtx     = null
+  let _resultDataCtx    = null
+
+  let _width            = 0
+  let _height           = 0
+  let _gotResults       = true
+
+  const openCamera = () => {
+
+    console.log('openCamera')
+
+    return new Promise((resolve, reject) => {
+
+      window.navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720, frameRate: 30, facingMode: 'user'} })
+        .then((mediaStream) => {
+
+          _webcam.srcObject = mediaStream
+          _webcam.play().then(() => { resolve({ width: _webcam.videoWidth, height: _webcam.videoHeight }) }).catch((e) => { reject(e) })
+
+        }).catch((e) => { reject(e) })
+    })
+  }
+
+  const trackFaces = () => {
+
+    if(!_imageData) { return }
+
+    const ctx = _imageDataCtx
+
+    ctx.setTransform(-1.0, 0, 0, 1, _width, 0) // A virtual mirror should be... mirrored
+    ctx.drawImage(_webcam, 0, 0, _width, _height)
+    ctx.setTransform(1.0, 0, 0, 1, 0, 0) // unmirror to draw the results
+
+    if(_gotResults) {
+
+      _gotResults = false
+
+      const _dataArray = new Uint8ClampedArray(_width * _height * 4)
+      _dataArray.set(ctx.getImageData(0, 0, _width, _height).data)
+
+      worker.postMessage(_dataArray.buffer, [_dataArray.buffer])
+    }
+
+    requestAnimationFrame(trackFaces)
+  }
+
+  openCamera().then(({ width, height }) => {
+
+    console.log('openCamera: done: ' + width + 'x' + height)
+
+    _width            = width
+    _height           = height
+
+    _imageData.width  = _width
+    _imageData.height = _height
+    _imageDataCtx     = _imageData.getContext("2d")
+
+    _resultData.width  = _width
+    _resultData.height = _height
+    _resultDataCtx     = _resultData.getContext("2d")
+
+    sendSize()
+
+  }).catch((e) => { if(e) { console.error('Camera failed: ', e) } })
+
+  const drawVertices   = (ctx, vertices, color, radius) => {
+
+    ctx.strokeStyle           = null
+    ctx.fillStyle             = getColor(color, 1.0)
+
+    let _radius               = radius || 2.0
+
+    for(let i = 0; i < vertices.length; i += 2) {
+
+      ctx.beginPath()
+      ctx.arc(vertices[i], vertices[i + 1], _radius, 0, 2 * Math.PI)
+      ctx.fill()
+    }
+  }
+
+  const getColor = (color, alpha) => {
+
+    const colorStr = color + ''
+
+    if(colorStr.startsWith('rgb')) {
+
+      return color
+    }
+
+    if(colorStr.startsWith('#')) {
+
+      color = parseInt('0x' + colorStr.substr(1))
+    }
+
+    return 'rgb(' +
+      (((color >> 16) & 0xff).toString(10)) + ', ' +
+      (((color >> 8) & 0xff).toString(10))  + ', ' +
+      (((color) & 0xff).toString(10)) + ', ' + alpha +')'
+  }
+
+</script>
+
+</body>
+
+</html>
