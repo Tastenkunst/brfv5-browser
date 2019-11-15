@@ -39,6 +39,21 @@ export const drawCircles    = (ctx, array, color, radius) => {
   }
 }
 
+export const drawVertices   = (ctx, vertices, color, radius) => {
+
+  ctx.strokeStyle           = null
+  ctx.fillStyle             = getColor(color, 1.0)
+
+  let _radius               = radius || 2.0
+
+  for(let i = 0; i < vertices.length; i += 2) {
+
+    ctx.beginPath()
+    ctx.arc(vertices[i], vertices[i + 1], _radius, 0, 2 * Math.PI)
+    ctx.fill()
+  }
+}
+
 export const drawRect       = (ctx, rect, color, lineWidth) => {
 
   ctx.strokeStyle           = getColor(color, 1.0)
