@@ -161,6 +161,10 @@ When will the other platforms be available.
 
 ### Release notes
 
+v5.1.3 - 29th January 2020
+
++ Version bump for emscripten to v1.39.6 - upstream
+
 v5.1.0 - 14th November 2019
 
 + BRFv5 is now 40% faster.
