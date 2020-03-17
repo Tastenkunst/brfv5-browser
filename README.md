@@ -1,4 +1,4 @@
-# Beyond Reality Face SDK - v5.1.0 (BRFv5) - Platform: Browser
+# Beyond Reality Face SDK - v5.1.5 (BRFv5) - Platform: Browser
 
 ### What is BRFv5?
 
@@ -160,6 +160,12 @@ When will the other platforms be available.
 + We plan to work on the other example projects until the end of 2019.
 
 ### Release notes
+
+v5.1.5 - 17th March 2020
+
++ Added an ASM.js export. We do now support a manual ASM.js fallback. 
+  Since WebAssembly is available almost everywhere, there is no automatic checking/switching.
++ Added a nodejs example. There is an issue with loading more than 6 model chunks for 68l, which leads to wrong results, not sure why yet.
 
 v5.1.3 - 29th January 2020
 

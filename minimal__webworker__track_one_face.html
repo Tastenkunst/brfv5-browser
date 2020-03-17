@@ -90,7 +90,11 @@
 
     return new Promise((resolve, reject) => {
 
-      window.navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720, frameRate: 30, facingMode: 'user'} })
+      //1280x720 to better see the lag caused by the communication.
+      //640x480: results will be more in sync.
+
+      // window.navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720, frameRate: 30, facingMode: 'user'} })
+      window.navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, frameRate: 30, facingMode: 'user'} })
         .then((mediaStream) => {
 
           _webcam.srcObject = mediaStream

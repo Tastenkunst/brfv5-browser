@@ -1,9 +1,12 @@
 // Set the BRFv5 import and library name here.
 // Also set your own appId for reference.
 
-import { brfv5Module }          from './brfv5_js_tk290120_v5.1.3_trial.js'
+import { brfv5Module }          from './brfv5_js_tk170320_v5.1.5_trial.js'          // WebAssembly is available is every major browser, no need for asm.js
+// import { brfv5Module }          from './brfv5_js_tk170320_v5.1.5_trial.asm.js'   // .asm.js is a manual possibility to load asm.js binaries
 
-const _libraryName              = 'brfv5_js_tk290120_v5.1.3_trial.brfv5'
+const _libraryName              = 'brfv5_js_tk170320_v5.1.5_trial.brfv5'            // for WebAssembly
+// const _libraryName              = 'brfv5_js_tk170320_v5.1.5_trial.asm.brfv5'     // for asm.js
+
 const _appId                    = 'brfv5.browser.examples' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
 
 export const brfv5              = {}

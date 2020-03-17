@@ -1,18 +1,23 @@
 // Set the BRFv5 import and library name here.
 // Also set your own appId for reference.
 
-importScripts('../brfv5/brfv5_js_tk170320_v5.1.5_trial_no_modules.js')
+// THIS FILE IS THE SAME AS brfv5__init.js BUT PREPARED TO USE ASMJS BINARIES. YOU CAN STILL USE brfv5__init.js AND SWAP THE FILE NAMES!
 
-const _libraryName              = 'brfv5_js_tk170320_v5.1.5_trial.brfv5'
-const _appId                    = 'brfv5.browser.worker' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
+// import { brfv5Module }          from './brfv5_js_tk170320_v5.1.5_trial.js'          // WebAssembly is available is every major browser, no need for asm.js
+import { brfv5Module }          from './brfv5_js_tk170320_v5.1.5_trial.asm.js'   // .asm.js is a manual possibility to load asm.js binaries
 
-const brfv5                     = {}
+// const _libraryName              = 'brfv5_js_tk170320_v5.1.5_trial.brfv5'            // for WebAssembly
+const _libraryName              = 'brfv5_js_tk170320_v5.1.5_trial.asm.brfv5'     // for asm.js
+
+const _appId                    = 'brfv5.browser.examples' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
+
+export const brfv5              = {}
 
 let _brfv5Manager               = null
 let _brfv5Config                = null
 
 // numChunksToLoad: can be anything from 4 to 8.
-const loadBRFv5Model            = (modelName, numChunksToLoad, pathToModels = '', appId = null, onProgress = null) => {
+export const loadBRFv5Model     = (modelName, numChunksToLoad, pathToModels = '', appId = null, onProgress = null) => {
 
   if(!modelName) { throw 'Please provide a modelName.' }
 
@@ -49,3 +54,5 @@ const loadBRFv5Model            = (modelName, numChunksToLoad, pathToModels = ''
     }
   })
 }
+
+export default { loadBRFv5Model, brfv5 }
