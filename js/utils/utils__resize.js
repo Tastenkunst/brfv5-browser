@@ -69,13 +69,11 @@ export const doResize = (element, elementWidth, elementHeight, scaleMode, scale)
       element.style.transform = 'scale(' + (_scale) + ')'
     }
 
-
   } else {
 
     element.style.width  = sw + "px"
     element.style.height = sh + "px"
   }
-
 }
 
 export const getScale = (element, elementWidth, elementHeight, scaleMode) => {

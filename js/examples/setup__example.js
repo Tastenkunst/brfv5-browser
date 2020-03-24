@@ -29,7 +29,7 @@ import { mountStage }                                                       from
 import { mountImage,  loadImage,  setSizeImage,  getDataFromImage }         from '../ui/ui__input__image.js'
 import { closeImage }                                                       from '../ui/ui__input__image.js'
 import { mountCamera, openCamera, setSizeCamera, getDataFromCamera }        from '../ui/ui__input__camera.js'
-import { closeCamera }                                                      from '../ui/ui__input__camera.js'
+import { closeCamera, isVideoPaused }                                       from '../ui/ui__input__camera.js'
 
 import { startTracking, stopTracking }                                      from '../ui/ui__input__data.js'
 
@@ -82,7 +82,9 @@ let _onTracking                 = null
 // indicate whether we track on a camera stream or an image.
 let _isImageTracking            = false
 
+let _orientation                = null
 let _scaleMode                  = ScaleMode.PROPORTIONAL_INSIDE
+let _t3d                        = {} // a ThreeJS namespace per view.
 
 export const setupExample = (config = null) => {
 
@@ -115,7 +117,7 @@ export const setupExample = (config = null) => {
     hidePNGOverlay()
     hideTextureOverlay()
     hideTextureExporter()
-    hideThreejsOverlay()
+    hideThreejsOverlay(_t3d)
 
     return
   }
@@ -138,7 +140,7 @@ export const setupExample = (config = null) => {
   mountTextureExporter(container)
 
   mountPNGOverlay(stage, _scaleMode)
-  mountThreejsOverlay(stage, _scaleMode)
+  mountThreejsOverlay(stage, _scaleMode, _t3d)
 
   mountPreloader(stage)
   mountStats(stage)
@@ -184,9 +186,15 @@ export const trackCamera = () => {
   openCamera()
     .then(({ width, height }) => setSizeAndInitTracking(width, height))
     .catch((e) => { if(e) { error('CAMERA_FAILED: ', e) } })
+
+  _orientation = window.orientation
+
+  window.addEventListener('orientationchange', onOrientationChange)
 }
 
 export const trackImage = (path) => {
+
+  window.removeEventListener('orientationchange', onOrientationChange)
 
   _isImageTracking = true
 
@@ -195,6 +203,32 @@ export const trackImage = (path) => {
   loadImage(path)
     .then(({ width, height }) => setSizeAndInitTracking(width, height, true))
     .catch((e) => { if(e) { error('IMAGE_FAILED: ', e.msg) } })
+}
+
+const onOrientationChange = () => {
+
+  console.log('window.orientation', window.orientation)
+
+  if(window.orientation !== _orientation) {
+
+    _orientation = window.orientation
+
+    if(isVideoPaused()) {
+
+      // don't start the video after the change
+
+    } else {
+
+      closeCamera()
+      setTimeout(() => {
+
+        openCamera()
+          .then(({ width, height }) => setSizeAndInitTracking(width, height))
+          .catch((e) => { if(e) { error('CAMERA_FAILED: ', e) } })
+
+      }, 250)
+    }
+  }
 }
 
 const setSizeAndInitTracking = (width, height) => {
@@ -211,7 +245,7 @@ const setSizeAndInitTracking = (width, height) => {
 
   setSizeTextureExporter(_width, _height)
   setSizePNGOverlay(_width, _height)
-  setSizeThreejsOverlay(_width, _height)
+  setSizeThreejsOverlay(_width, _height, _t3d)
 
   setFullscreenState()
 
@@ -255,7 +289,7 @@ const initTracking = () => {
 
     _brfv5Manager.reset()
 
-    if(_onConfigure) { _onConfigure(_brfv5Config) }
+    if(_onConfigure) { _onConfigure(_brfv5Config, _t3d) }
 
     if(_enableDynamicPerformance) {
 
@@ -312,7 +346,7 @@ const onImageDataUpdate = (imageData, activeCanvas, inactiveCanvas, trackOnlyOnc
 
   if(_onTracking) {
 
-    drawDebug = _onTracking(_brfv5Manager, _brfv5Config, activeCanvas)
+    drawDebug = _onTracking(_brfv5Manager, _brfv5Config, activeCanvas, _t3d)
 
   } else {
 
@@ -321,7 +355,7 @@ const onImageDataUpdate = (imageData, activeCanvas, inactiveCanvas, trackOnlyOnc
 
   if(drawDebug) {
 
-    drawFaceTrackingResultsDefault(_brfv5Manager, _brfv5Config, activeCanvas)
+    drawFaceTrackingResultsDefault(_brfv5Manager, _brfv5Config, activeCanvas, _t3d)
   }
 
   if(_brfv5Config.enableFaceTracking) {

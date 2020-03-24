@@ -43,7 +43,7 @@ var Stats = function () {
 	var beginTime = ( performance || Date ).now(), prevTime = beginTime, frames = 0;
 
 	var msPanel = addPanel( new Stats.Panel( 'MS', '#fff', '#00a0ff' ) );
-  var fpsPanel = addPanel( new Stats.Panel( 'FPS', '#00a0ff', '#fff' ) );
+	var fpsPanel = addPanel( new Stats.Panel( 'FPS', '#00a0ff', '#fff' ) );
 
 	if ( self.performance && self.performance.memory ) {
 
@@ -68,45 +68,45 @@ var Stats = function () {
 
 		},
 
-    end: function () {
+		end: function () {
 
-      frames ++;
+			frames ++;
 
-      var time = ( performance || Date ).now();
+			var time = ( performance || Date ).now();
 
-      msPanel.update( time - beginTime, 200 );
+			msPanel.update( time - beginTime, 200 );
 
-      if ( time >= prevTime + 1000 ) {
+			if ( time >= prevTime + 1000 ) {
 
-        fpsPanel.update( ( frames * 1000 ) / ( time - prevTime ), 100 );
+				fpsPanel.update( ( frames * 1000 ) / ( time - prevTime ), 100 );
 
-        prevTime = time;
-        frames = 0;
+				prevTime = time;
+				frames = 0;
 
-        // if ( memPanel ) {
-        //
-        //   var memory = performance.memory;
-        //   memPanel.update( memory.usedJSHeapSize / 1048576, memory.jsHeapSizeLimit / 1048576 );
-        //
-        // }
+				// if ( memPanel ) {
+				//
+				//   var memory = performance.memory;
+				//   memPanel.update( memory.usedJSHeapSize / 1048576, memory.jsHeapSizeLimit / 1048576 );
+				//
+				// }
 
-      }
+			}
 
-      return time;
+			return time;
 
-    },
+		},
 
 		setMS: function (time, info) {
 
 			msPanel.update( time, 200, info );
-      fpsPanel.update( 1000 / time, 100 );
+			fpsPanel.update( 1000 / time, 100 );
 
-      // if ( memPanel && Math.random() < 0.1 ) {
-      //
-      //   var memory = performance.memory;
-      //   memPanel.update( memory.usedJSHeapSize / 1048576, memory.jsHeapSizeLimit / 1048576 );
-      //
-      // }
+			// if ( memPanel && Math.random() < 0.1 ) {
+			//
+			//   var memory = performance.memory;
+			//   memPanel.update( memory.usedJSHeapSize / 1048576, memory.jsHeapSizeLimit / 1048576 );
+			//
+			// }
 		},
 
 		update: function () {
@@ -131,9 +131,9 @@ Stats.Panel = function ( name, fg, bg ) {
 	var numUpdates = 0
 
 	var WIDTH = 80 * PR, HEIGHT = 48 * PR,
-			TEXT_X = 3 * PR, TEXT_Y = 2 * PR,
-			GRAPH_X = 3 * PR, GRAPH_Y = 15 * PR,
-			GRAPH_WIDTH = 74 * PR, GRAPH_HEIGHT = 30 * PR;
+		TEXT_X = 3 * PR, TEXT_Y = 2 * PR,
+		GRAPH_X = 3 * PR, GRAPH_Y = 15 * PR,
+		GRAPH_WIDTH = 74 * PR, GRAPH_HEIGHT = 30 * PR;
 
 	var canvas = document.createElement( 'canvas' );
 	canvas.width = WIDTH;

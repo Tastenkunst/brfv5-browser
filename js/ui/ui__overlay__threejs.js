@@ -17,7 +17,7 @@ const _name                     = 'BRFv5ThreejsOverlay'
 
 let _scaleMode                  = ScaleMode.PROPORTIONAL_OUTSIDE
 
-export const mountThreejsOverlay = (node, scaleMode) => {
+export const mountThreejsOverlay = (node, scaleMode, t3d) => {
 
   log(_name + ': mountThreejsOverlay')
 
@@ -29,7 +29,7 @@ export const mountThreejsOverlay = (node, scaleMode) => {
 
     node.appendChild(__brfv5__threejs_canvas)
 
-    if(create3DScene(__brfv5__threejs_canvas)) {
+    if(create3DScene(t3d, __brfv5__threejs_canvas)) {
 
       window.addEventListener("resize", onResize)
 
@@ -40,35 +40,35 @@ export const mountThreejsOverlay = (node, scaleMode) => {
   }
 }
 
-export const setSizeThreejsOverlay = (width, height) => {
+export const setSizeThreejsOverlay = (width, height, t3d) => {
 
   log(_name + ': setSizeThreejsOverlay:', width, height)
 
   __brfv5__threejs_canvas.width  = width
   __brfv5__threejs_canvas.height = height
 
-  update3DLayout(width, height)
+  update3DLayout(t3d, width, height)
 
   onResize()
 }
 
-export const hideThreejsOverlay = () => {
+export const hideThreejsOverlay = (t3d) => {
 
   log(_name + ': hideThreejsOverlay')
 
   __brfv5__threejs_canvas.classList.add('vh')
 }
 
-export const hide3DModels = () => {
+export const hide3DModels = (t3d) => {
 
-  hideAllBaseNodes()
+  hideAllBaseNodes(t3d)
 }
 
-export const updateByFace = (cameraCtx, face, index, show) => {
+export const updateByFace = (t3d, cameraCtx, face, index, show) => {
 
   __brfv5__threejs_canvas.classList.remove('vh')
 
-  update3D(face, index, show)
+  update3D(t3d, face, index, show)
 }
 
 const onResize = () => {

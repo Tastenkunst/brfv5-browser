@@ -29,16 +29,46 @@ import { setROIsWholeImage }                from '../brfv5/brfv5__configure.js'
 
 import { colorPrimary }                     from '../utils/utils__colors.js'
 
-import { render3DScene, setNumFaces }       from '../threejs/threejs__setup.js'
+import { render3DScene, setNumFaces, prepareModelNodes,
+  hideAllModels, turnIntoOcclusionObject, add3DModel,
+  set3DModelByName }                        from '../threejs/threejs__setup.js'
 
-import { load3DModel, load3DOcclusionModel }from '../threejs/threejs__loading.js'
-import { set3DModelByName }                 from '../threejs/threejs__loading.js'
+import { load3DModelList, getModelInstance } from '../threejs/threejs__loading.js'
 
 import { hide3DModels, updateByFace }       from '../ui/ui__overlay__threejs.js'
 
-let numFacesToTrack = 1 // set be run()
+let numFacesToTrack       = 1 // set be run()
 
-export const configureExample = (brfv5Config) => {
+let models = [
+
+  // Load the occlusion model (an invisible head). It hides anything behind it.
+
+  {
+    pathToModel:          './assets/3d/occlusion_head_reference.json',
+    pathToTextures:       './assets/3d/textures/',
+
+    nameModel:            null,
+
+    isOcclusionModel:     true,
+    isMaterialCollection: false
+  },
+
+  // The actual 3d model as exported from ThreeJS editor.
+  // either rayban.json or earrings.json
+  // Textures might be embedded or set as file name in a certain path.
+
+  {
+    pathToModel:          './assets/3d/rayban.json',
+    pathToTextures:       './assets/3d/textures/',
+
+    nameModel:            'black',
+
+    isOcclusionModel:     false,
+    isMaterialCollection: false
+  }
+]
+
+export const configureExample = (brfv5Config, t3d) => {
 
   configureNumFacesToTrack(brfv5Config, numFacesToTrack)
 
@@ -47,48 +77,63 @@ export const configureExample = (brfv5Config) => {
     setROIsWholeImage(brfv5Config)
   }
 
-  setNumFaces(numFacesToTrack)
-
   brfv5Config.faceTrackingConfig.enableFreeRotation = false
   brfv5Config.faceTrackingConfig.maxRotationZReset  = 34.0
 
-  // Load the occlusion model (an invisible head). It hides anything behind it.
+  setNumFaces(t3d, numFacesToTrack)
 
-  load3DOcclusionModel('./assets/3d/occlusion_head_reference.json',
-    './assets/3d/textures/', null).then(() => {
+  hide3DModels(t3d)
 
-  }).catch((e) => {
+  load3DModelList({ fileList: models, onProgress: null }).then(() => {
 
-    error('Could not load 3D occlusion model:', e)
-  })
+    prepareModelNodes(t3d)
+    hideAllModels(t3d)
 
-  // The actual 3d model as exported from ThreeJS editor.
-  // either rayban.json or earrings.json
-  // Textures might be embedded or set as file name in a certain path.
-  load3DModel('./assets/3d/rayban.json',
-    './assets/3d/textures/', null).then(() => {
+    for(let i = 0; i < models.length; i++) {
 
-    set3DModelByName()
-    render3DScene()
+      const model = models[i]
+      const obj3d = getModelInstance(t3d, model.pathToModel)
 
-  }).catch((e) => {
+      if(model.isOcclusionModel) {
 
-    error('Could not load 3D model:', e)
-  })
+        turnIntoOcclusionObject(obj3d)
+      }
+
+      if(!model.isMaterialCollection && obj3d) {
+
+        add3DModel(t3d, obj3d)
+      }
+    }
+
+    for(let i = 0; i < models.length; i++) {
+
+      const model = models[i]
+
+      if(!model.isMaterialCollection) {
+
+        set3DModelByName(t3d, model.pathToModel, model.nameModel, (url, name) => {
+          error('SETTING_3D_MODEL_NAME_FAILED:', name, url)
+        })
+      }
+    }
+
+  }).catch((e) => { error(e) })
 }
 
-export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
+export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas, t3d) => {
 
   const ctx   = canvas.getContext('2d')
   const faces = brfv5Manager.getFaces()
 
   let doDrawFaceDetection = false
 
-  hide3DModels()
+  setNumFaces(t3d, numFacesToTrack)
+
+  hide3DModels(t3d)
 
   for(let i = 0; i < faces.length; i++) {
 
-    const face = faces[i];
+    const face = faces[i];console.log(face, face.state)
 
     if(face.state === brfv5.BRFv5State.FACE_TRACKING) {
 
@@ -96,26 +141,25 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
 
       // Update the 3d model placement.
 
-      updateByFace(ctx, face, i, true)
+      updateByFace(t3d, ctx, face, i, true)
 
       if(window.selectedSetup === 'image') {
 
-        updateByFace(ctx, face, i, true)
-        updateByFace(ctx, face, i, true)
-        updateByFace(ctx, face, i, true)
+        updateByFace(t3d, ctx, face, i, true)
+        updateByFace(t3d, ctx, face, i, true)
+        updateByFace(t3d, ctx, face, i, true)
       }
 
     } else {
 
       // Hide the 3d model, if the face wasn't tracked.
-      updateByFace(ctx, face, i, false)
+      updateByFace(t3d, ctx, face, i, false)
 
       doDrawFaceDetection = true;
     }
 
     // ... and then render the 3d scene.
-    render3DScene()
-
+    render3DScene(t3d)
   }
 
   if(doDrawFaceDetection) {

@@ -1,9 +1,7 @@
-import { t3d }                              from './threejs__setup.js'
-
 import { error }                            from '../utils/utils__logging.js'
 import { toDegree, toRadian }               from '../utils/utils__geom.js'
 
-export const hideAllBaseNodes = () => {
+export const hideAllBaseNodes = (t3d) => {
 
   for(let i = 0; i < t3d.baseNodes.length; i++) {
 
@@ -11,7 +9,7 @@ export const hideAllBaseNodes = () => {
   }
 }
 
-export const updateByFace = (face, index, show) => {
+export const updateByFace = (t3d, face, index, show) => {
 
   const transforms    = t3d.transforms
   const baseNodes     = t3d.baseNodes
@@ -107,9 +105,18 @@ export const updateByFace = (face, index, show) => {
     const diffXAbs    = Math.abs(diffX)
     const diffYAbs    = Math.abs(diffY)
 
-    transform.x       = transform.x + diffX * (diffXAbs < 1.0 ? 0.25 : (diffXAbs < 2.0 ? 0.50 : 0.75))
-    transform.y       = transform.y + diffY * (diffYAbs < 1.0 ? 0.25 : (diffYAbs < 2.0 ? 0.50 : 0.75))
-    transform.z       = modelZ
+    if(!baseNode.visible || diffXAbs > 3 || diffYAbs > 3) {
+
+      transform.x       = transform.x + diffX
+      transform.y       = transform.y + diffY
+
+    } else {
+
+      transform.x       = transform.x + diffX * (diffXAbs < 1.0 ? 0.25 : (diffXAbs < 2.0 ? 0.50 : 0.75))
+      transform.y       = transform.y + diffY * (diffYAbs < 1.0 ? 0.25 : (diffYAbs < 2.0 ? 0.50 : 0.75))
+    }
+
+    transform.z       = modelZ - scale * 0.1 // offset a little bit for z sorting
     transform.scale   = scale// * 0.01 * si * 1.33
 
     const diffRx      = (rx - transform.rx)
@@ -127,7 +134,8 @@ export const updateByFace = (face, index, show) => {
     baseNode.rotation.set(toRadian(transform.rx), toRadian(transform.ry), toRadian(transform.rz))
     baseNode.scale.set(transform.scale, transform.scale, transform.scale)
 
-    t3d.light_front.lookAt(transform.x, transform.y, transform.z)
+    t3d.lightLeft.lookAt( transform.x, transform.y, transform.z)
+    t3d.lightRight.lookAt(transform.x, transform.y, transform.z)
 
     baseNode.visible  = true
 
