@@ -1,9 +1,9 @@
 // Set the BRFv5 import and library name here.
 // Also set your own appId for reference.
 
-importScripts('../brfv5/brfv5_js_tk170320_v5.1.5_trial_no_modules.js')
+importScripts('../brfv5/brfv5_js_tk240320_v5.1.5_trial_no_modules.js')
 
-const _libraryName              = 'brfv5_js_tk170320_v5.1.5_trial.brfv5'
+const _libraryName              = 'brfv5_js_tk240320_v5.1.5_trial.brfv5'
 const _appId                    = 'brfv5.browser.worker' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
 
 const brfv5                     = {}
