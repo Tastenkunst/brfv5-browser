@@ -38,7 +38,7 @@ export const create3DScene = (t3d, canvas) => {
 
   t3d.scene           = new Scene()
   t3d.camera          = new PerspectiveCamera(
-    20.0, canvas.width / canvas.height, 20, 10000
+    20.0, canvas.width / canvas.height, 20, 20000
   )
 
   t3d.isInitialized   = true

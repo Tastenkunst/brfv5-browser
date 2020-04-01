@@ -35,11 +35,11 @@ export const updateByFace = (t3d, face, index, show) => {
     return
   }
 
-  let modelZ = 2725
+  let modelZ = 1362
 
   if(t3d.camera.isPerspectiveCamera) {
 
-    modelZ = (2725 / 480) * (canvasHeight / t3d.sceneScale)
+    modelZ = 1362 * (canvasHeight / 480)
   }
 
   if(show) {
@@ -49,8 +49,8 @@ export const updateByFace = (t3d, face, index, show) => {
     const ch  = (canvasHeight / si)
 
     let scale =   face.scale * si * 0.0133
-    let x     = -(face.translationX - cw * 0.5)  * si
-    let y     = -(face.translationY - ch * 0.5)  * si
+    let x     = -(face.translationX - cw * 0.5) * si
+    let y     = -(face.translationY - ch * 0.5) * si
     let rx    = - face.rotationX * 1.30
     let ry    = - face.rotationY * 1.30
     let rz    =   face.rotationZ

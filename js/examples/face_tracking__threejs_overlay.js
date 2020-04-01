@@ -133,7 +133,7 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas, t3d) =>
 
   for(let i = 0; i < faces.length; i++) {
 
-    const face = faces[i];console.log(face, face.state)
+    const face = faces[i];
 
     if(face.state === brfv5.BRFv5State.FACE_TRACKING) {
 
