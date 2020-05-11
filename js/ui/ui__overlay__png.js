@@ -139,9 +139,14 @@ const onResize = () => {
 
   for(let i = 0; i < _images.length; ++i) {
 
-    if(_images[i].container) {
+    const container = _images[i].container
 
-      doResize(_images[i].container, _width, _height, _scaleMode, true)
+    if(container) {
+
+      container.style.width  = _width  + 'px'
+      container.style.height = _height + 'px'
+
+      doResize(container, _width, _height, _scaleMode, true)
     }
   }
 }
