@@ -33,7 +33,9 @@ export const BRFv5FaceExtended = function() {
   this._tmpPoint5   = null
 }
 
-BRFv5FaceExtended.prototype.update = function(face /* BRFv5Face */) {
+BRFv5FaceExtended.prototype.update = function(face /* BRFv5Face */, _scale) {
+
+  if(!_scale) _scale  = 1.0
 
   this.state        = face.state
 
@@ -71,11 +73,11 @@ BRFv5FaceExtended.prototype.update = function(face /* BRFv5Face */) {
 
     const thisLandmark        = this.landmarks[i]
 
-    thisLandmark.x            = faceLandmark.x
-    thisLandmark.y            = faceLandmark.y
+    thisLandmark.x            = faceLandmark.x * _scale
+    thisLandmark.y            = faceLandmark.y * _scale
 
-    this.vertices[i * 2]      = faceLandmark.x
-    this.vertices[i * 2 + 1]  = faceLandmark.y
+    this.vertices[i * 2]      = faceLandmark.x * _scale
+    this.vertices[i * 2 + 1]  = faceLandmark.y * _scale
   }
 
   this.vertices.length = face.landmarks.length * 2
