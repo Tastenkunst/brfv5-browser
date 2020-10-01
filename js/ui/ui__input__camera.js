@@ -11,10 +11,12 @@ import { ERRORS }               from '../utils/utils__errors.js'
 const __brfv5__input            = document.createElement('video')
 const __brfv5__camera_canvas_0  = document.createElement('canvas')
 const __brfv5__camera_canvas_1  = document.createElement('canvas')
+
 __brfv5__camera_canvas_0.id     = '__brfv5__camera_canvas_0'
 __brfv5__camera_canvas_1.id     = '__brfv5__camera_canvas_1'
 
 __brfv5__input.setAttribute('playsinline', true)
+__brfv5__input.setAttribute('muted', true)
 
 const _name                     = 'BRFv5CameraCanvas'
 
@@ -31,7 +33,7 @@ export const mountCamera = (node, scaleMode) => {
 
     _scaleMode = scaleMode
 
-    __brfv5__input.className            = 'bg-t abs vh cm'
+    __brfv5__input.className            = 'bg-t abs cm'
     __brfv5__camera_canvas_0.className  = 'bg-t abs vh c'
     __brfv5__camera_canvas_1.className  = 'bg-t abs vh c'
 
