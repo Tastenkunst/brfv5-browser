@@ -6,7 +6,9 @@ import { drawTexture }          from '../utils/utils__canvas.js'
 import { blendOnto }            from '../utils/utils__blend_modes.js'
 
 let __brfv5__texture_overlay    = null // This is the node to mount to.
+
 const __brfv5__texture_canvas   = document.createElement('canvas')
+
 __brfv5__texture_canvas.id      = '__brfv5__texture_canvas'
 
 const _name                     = 'BRFv5TextureOverlay'
