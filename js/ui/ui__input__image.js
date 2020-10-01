@@ -6,6 +6,8 @@ import { ERRORS }               from '../utils/utils__errors.js'
 
 const __brfv5__input            = document.createElement('img')
 const __brfv5__image_canvas     = document.createElement('canvas')
+
+__brfv5__input.id               = '__brfv5__input'
 __brfv5__image_canvas.id        = '__brfv5__image_canvas'
 
 const _name                     = 'BRFv5ImageCanvas'
