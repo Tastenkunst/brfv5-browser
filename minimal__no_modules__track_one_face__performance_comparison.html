@@ -128,7 +128,7 @@
 
     return new Promise((resolve, reject) => {
 
-      window.navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, frameRate: 30, facingMode: 'user'} })
+      window.navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720, frameRate: 30, facingMode: 'user'} })
         .then((mediaStream) => {
 
           _webcam.srcObject = mediaStream
