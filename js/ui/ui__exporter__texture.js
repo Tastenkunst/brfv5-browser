@@ -1,11 +1,15 @@
 import { log }                  from '../utils/utils__logging.js'
 
 import { drawTexture }          from '../utils/utils__canvas.js'
+import { drawTriangles }        from '../utils/utils__canvas.js'
+import { colorPrimary }         from "../utils/utils__colors.js";
 
 import {
+  faceExtendedTriangles74l,
   faceExtendedTrianglesWithMouthWhole74l,
   faceTrianglesWithMouthWhole68l
-}                               from '../utils/utils__face_triangles.js'
+} from '../utils/utils__face_triangles.js'
+
 
 let __brfv5__texture_exporter   = null // This is the node to mount to.
 const __brfv5__texture_canvas   = document.createElement('canvas')
@@ -13,6 +17,7 @@ const __brfv5__texture_canvas   = document.createElement('canvas')
 const _name                     = 'BRFv5TextureExporter'
 
 let _uvData                     = null
+let _uvDataTmp                  = null
 
 let _textureSize                = 256
 let _width                      = 0
@@ -108,6 +113,9 @@ export const updateByFace = (cameraCtx, face, index, show, imageData) => {
 
     drawTexture(cameraCtx, face.vertices, triangles, _uvData, __brfv5__texture_canvas, 0.25)
 
+    drawTriangles(cameraCtx, face.vertices, faceExtendedTriangles74l, 1.0, colorPrimary, 0.4)
+    drawTriangles(ctx, _uvDataTmp, faceExtendedTriangles74l, 1.0, colorPrimary, 0.4)
+
     __brfv5__texture_canvas.classList.remove('vh')
 
   } else {
@@ -121,15 +129,20 @@ const prepareFaceTexture = (face, ctx, imageData) => {
   const f = _textureSize / Math.max(face.bounds.width, face.bounds.height)
   const uvData = []
 
+  _uvDataTmp = []
+
   ctx.drawImage(imageData, -face.bounds.x * f, -face.bounds.y * f, _width * f, _height * f)
 
   for(let u = 0; u < face.vertices.length; u += 2) {
 
-    const ux = (((face.vertices[u]   - face.bounds.x) * f) / _textureSize)
-    const uy = (((face.vertices[u+1] - face.bounds.y) * f) / _textureSize)
+    const ux = (((face.vertices[u]   - face.bounds.x) * f))
+    const uy = (((face.vertices[u+1] - face.bounds.y) * f))
 
-    uvData.push(ux)
-    uvData.push(uy)
+    _uvDataTmp.push(ux)
+    _uvDataTmp.push(uy)
+
+    uvData.push(ux / _textureSize)
+    uvData.push(uy / _textureSize)
   }
 
   return uvData
