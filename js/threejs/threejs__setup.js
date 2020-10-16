@@ -1,14 +1,13 @@
 // This module handles the ThreeJS scene setup.
-// It's a simple scene with PerspectiveCamera and 2 lights.
+// It's a simple scene with PerspectiveCamera, AmbientLight at 5.0 intensity and physical materials.
 
 import { log, error }             from '../utils/utils__logging.js'
 import { SystemUtils }            from '../utils/utils__system.js'
 import { toRadian }               from '../utils/utils__geom.js'
 
-import { Scene, Cache, PerspectiveCamera, WebGLRenderer,
-  Group, AmbientLight, Color, Vector3, DirectionalLight,
-  PointLight, GammaEncoding }     from './three.module.r114.js'
-import * as THREE                 from './three.module.r114.js'
+import { Scene, Cache, PerspectiveCamera, WebGLRenderer, Group,
+  AmbientLight,  Color, Vector3 } from './three.module.r121.js'
+import * as THREE                 from './three.module.r121.js'
 
 export const ObjectLoader         = THREE.ObjectLoader
 export const FileLoader           = THREE.FileLoader
@@ -38,7 +37,7 @@ export const create3DScene = (t3d, canvas) => {
 
   t3d.scene           = new Scene()
   t3d.camera          = new PerspectiveCamera(
-    20.0, canvas.width / canvas.height, 20, 20000
+    20.0, canvas.width / canvas.height, 100, 20000
   )
 
   t3d.isInitialized   = true
@@ -46,36 +45,21 @@ export const create3DScene = (t3d, canvas) => {
   createRenderer(t3d, canvas)
 
   t3d.renderer.setClearColor(0x000000, 0.0) // the default
-  // t3d.renderer.gammaInput = true
-  // t3d.renderer.gammaOutput = true
-  // t3d.renderer.outputEncoding = GammaEncoding
-  // t3d.renderer.gammaFactor = 1.2
+  t3d.renderer.outputEncoding = THREE.sRGBEncoding
+  t3d.renderer.physicallyCorrectLights = true
 
   const lightNode     = new Group();
   lightNode.name      = 'lightNode'
   t3d.lightNode       = lightNode
   t3d.scene.add(lightNode)
 
-  const ambient       = new AmbientLight(     0xffffff, 0.90); ambient.name     = "light_ambient"
-  const lightLeft     = new PointLight(       0xffffff, 0.25); lightLeft.name   = "light_front"
-  const lightRight    = new DirectionalLight( 0xffffff, 0.25); lightRight.name  = "light_right"
+  const ambient       = new AmbientLight( 0xffffff, 5.000);
+  ambient.name        = "light_ambient"
+  t3d.ambient         = ambient
 
   lightNode.add(ambient)
-  lightNode.add(lightLeft)
-  lightNode.add(lightRight)
-
-  lightLeft.position.set(500, 0, -1500)
-  lightLeft.lookAt(0, 0, 0)
-
-  lightRight.position.set(-500, 0, -1500)
-  lightRight.lookAt(0, 0, 0)
-
-  t3d.ambient         = ambient
-  t3d.lightLeft       = lightLeft
-  t3d.lightRight      = lightRight
 
   t3d.modelNodes      = []
-  // t3d.occlusionNodes  = []
   t3d.baseNodes       = []
   t3d.transforms      = []
   t3d.materialIdMap   = []

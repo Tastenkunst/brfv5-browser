@@ -117,7 +117,7 @@ export const updateByFace = (t3d, face, index, show) => {
     }
 
     transform.z       = modelZ - scale * 0.1 // offset a little bit for z sorting
-    transform.scale   = scale// * 0.01 * si * 1.33
+    transform.scale   = scale // * 0.01 * si * 1.33
 
     const diffRx      = (rx - transform.rx)
     const diffRy      = (ry - transform.ry)
@@ -133,9 +133,6 @@ export const updateByFace = (t3d, face, index, show) => {
     baseNode.position.set(transform.x, transform.y, transform.z)
     baseNode.rotation.set(toRadian(transform.rx), toRadian(transform.ry), toRadian(transform.rz))
     baseNode.scale.set(transform.scale, transform.scale, transform.scale)
-
-    t3d.lightLeft.lookAt( transform.x, transform.y, transform.z)
-    t3d.lightRight.lookAt(transform.x, transform.y, transform.z)
 
     baseNode.visible  = true
 

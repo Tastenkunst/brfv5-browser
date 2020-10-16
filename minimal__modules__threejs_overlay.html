@@ -86,10 +86,10 @@
       configureNumFacesToTrack(_brfv5Config, 1)
       configureFaceTracking(_brfv5Config, 3, true)
 
-      // TODO: Restrict tilt
+      // Free rotation results in better tracking, but lower performance.
 
-      _brfv5Config.faceTrackingConfig.enableFreeRotation = false
-      _brfv5Config.faceTrackingConfig.maxRotationZReset  = 34.0
+      // _brfv5Config.faceTrackingConfig.enableFreeRotation = true
+      // _brfv5Config.faceTrackingConfig.maxRotationZReset  = 34.0
 
       _brfv5Manager.configure(_brfv5Config)
 
@@ -184,7 +184,7 @@
     // Load the occlusion model (an invisible head). It hides anything behind it.
 
     {
-      pathToModel:          './assets/3d/occlusion_head_reference.json',
+      pathToModel:          './assets/3d/occlusion_head_v5.2.0.json',
       pathToTextures:       './assets/3d/textures/',
 
       nameModel:            null,
@@ -198,7 +198,25 @@
     // Textures might be embedded or set as file name in a certain path.
 
     {
-      pathToModel:          './assets/3d/rayban.json',
+      pathToModel:          './assets/3d/rayban_v5.2.0.json',
+      pathToTextures:       './assets/3d/textures/',
+
+      nameModel:            null,
+
+      isOcclusionModel:     false,
+      isMaterialCollection: false
+    },
+    {
+      pathToModel:          './assets/3d/pearlearring_left.json',
+      pathToTextures:       './assets/3d/textures/',
+
+      nameModel:            null,
+
+      isOcclusionModel:     false,
+      isMaterialCollection: false
+    },
+    {
+      pathToModel:          './assets/3d/pearlearring_right.json',
       pathToTextures:       './assets/3d/textures/',
 
       nameModel:            null,
