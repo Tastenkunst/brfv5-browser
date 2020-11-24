@@ -66,7 +66,7 @@
 
   }).catch((e) => { if(e) { console.error('Camera failed: ', e) } })
 
-  loadBRFv5Model('68l', 8, './js/brfv5/models/', _appId,
+  loadBRFv5Model('42l', 6, './js/brfv5/models/', _appId,
     (progress) => { console.log(progress) }).then(({ brfv5Manager, brfv5Config }) => {
 
     console.log('loadBRFv5Model: done')
@@ -184,7 +184,7 @@
     // Load the occlusion model (an invisible head). It hides anything behind it.
 
     {
-      pathToModel:          './assets/3d/occlusion_head_v5.2.0.json',
+      pathToModel:          './assets/3d/occlusion_head.artov5',
       pathToTextures:       './assets/3d/textures/',
 
       nameModel:            null,
@@ -198,7 +198,7 @@
     // Textures might be embedded or set as file name in a certain path.
 
     {
-      pathToModel:          './assets/3d/rayban_v5.2.0.json',
+      pathToModel:          './assets/3d/rayban.artov5',
       pathToTextures:       './assets/3d/textures/',
 
       nameModel:            null,
@@ -207,7 +207,7 @@
       isMaterialCollection: false
     },
     {
-      pathToModel:          './assets/3d/pearlearring_left.json',
+      pathToModel:          './assets/3d/pearlearring_left.artov5',
       pathToTextures:       './assets/3d/textures/',
 
       nameModel:            null,
@@ -216,7 +216,7 @@
       isMaterialCollection: false
     },
     {
-      pathToModel:          './assets/3d/pearlearring_right.json',
+      pathToModel:          './assets/3d/pearlearring_right.artov5',
       pathToTextures:       './assets/3d/textures/',
 
       nameModel:            null,

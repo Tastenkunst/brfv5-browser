@@ -1,4 +1,4 @@
-const { brfv5Module } = require('./js/brfv5/brfv5_js_tk121020_v5.2.0_trial_nodejs')
+const { brfv5Module } = require('./js/brfv5/brfv5_js_tk231120_v5.2.1_trial_nodejs')
 
 const fs        = require('fs')
 const pixels    = require('image-pixels')
@@ -10,7 +10,7 @@ let imageData   = null; // pixel buffer
 
 // Set the BRFv5 library name here, also set your own appId for reference.
 
-const _libraryName    = 'brfv5_js_tk121020_v5.2.0_trial.brfv5'
+const _libraryName    = 'brfv5_js_tk231120_v5.2.1_trial.brfv5'
 const _appId          = 'brfv5.nodejs.minimal' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
 const brfv5           = {} // The library namespace.
 
