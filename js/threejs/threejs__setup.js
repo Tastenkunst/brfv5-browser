@@ -6,8 +6,8 @@ import { SystemUtils }            from '../utils/utils__system.js'
 import { toRadian }               from '../utils/utils__geom.js'
 
 import { Scene, Cache, PerspectiveCamera, WebGLRenderer, Group,
-  AmbientLight,  Color, Vector3 } from './three.module.r121.js'
-import * as THREE                 from './three.module.r121.js'
+  AmbientLight, Color, Vector3 }  from './three.module.r122.js'
+import * as THREE                 from './three.module.r122.js'
 
 export const ObjectLoader         = THREE.ObjectLoader
 export const FileLoader           = THREE.FileLoader
@@ -53,7 +53,7 @@ export const create3DScene = (t3d, canvas) => {
   t3d.lightNode       = lightNode
   t3d.scene.add(lightNode)
 
-  const ambient       = new AmbientLight( 0xffffff, 5.000);
+  const ambient       = new AmbientLight(0xffffff, 5.000);
   ambient.name        = "light_ambient"
   t3d.ambient         = ambient
 
@@ -144,7 +144,7 @@ export const update3DLayout = (t3d, width, height) => {
 
 export const setNumFaces = (t3d, numFaces) => {
 
-  log(logName, 'setNumFaces', t3d, numFaces)
+  // log(logName, 'setNumFaces', t3d, numFaces)
 
   // Call this function before loading the 3d models and before the tracking starts.
 
