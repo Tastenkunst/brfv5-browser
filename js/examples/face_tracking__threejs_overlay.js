@@ -44,7 +44,7 @@ let models = [
   // Load the occlusion model (an invisible head). It hides anything behind it.
 
   {
-    pathToModel:          './assets/3d/occlusion_head_v5.2.0.json',
+    pathToModel:          './assets/3d/occlusion_head.artov5',
     pathToTextures:       './assets/3d/textures/',
 
     nameModel:            null,
@@ -58,7 +58,7 @@ let models = [
   // Textures might be embedded or set as file name in a certain path.
 
   {
-    pathToModel:          './assets/3d/rayban_v5.2.0.json',
+    pathToModel:          './assets/3d/rayban.artov5',
     pathToTextures:       './assets/3d/textures/',
 
     nameModel:            'black',
