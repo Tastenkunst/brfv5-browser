@@ -3,8 +3,8 @@
 
 // THIS FILE IS THE SAME AS brfv5__init.js BUT PREPARED TO USE ASMJS BINARIES. YOU CAN STILL USE brfv5__init.js AND SWAP THE FILE NAMES!
 
-import { brfv5Module }          from './brfv5_js_tk121020_v5.2.0_trial.asm.js'      // .asm.js is a manual possibility to load asm.js binaries
-const _libraryName              =      'brfv5_js_tk121020_v5.2.0_trial.asm.brfv5'   // for asm.js
+import { brfv5Module }          from './brfv5_js_tk231120_v5.2.1_trial.asm.js'      // .asm.js is a manual possibility to load asm.js binaries
+const _libraryName              =      'brfv5_js_tk231120_v5.2.1_trial.asm.brfv5'   // for asm.js
 
 const _appId                    = 'brfv5.browser.examples' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
 

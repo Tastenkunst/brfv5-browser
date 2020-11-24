@@ -3,8 +3,8 @@
 
 
 
-import { brfv5Module }          from './brfv5_js_tk121020_v5.2.0_trial.js'          // WebAssembly is available is every major browser, no need for asm.js
-const _libraryName              =      'brfv5_js_tk121020_v5.2.0_trial.brfv5'       // for WebAssembly
+import { brfv5Module }          from './brfv5_js_tk231120_v5.2.1_trial.js'          // WebAssembly is available is every major browser, no need for asm.js
+const _libraryName              =      'brfv5_js_tk231120_v5.2.1_trial.brfv5'       // for WebAssembly
 
 const _appId                    = 'brfv5.browser.examples' // (mandatory): 8 to 64 characters, a-z . 0-9 allowed
 
