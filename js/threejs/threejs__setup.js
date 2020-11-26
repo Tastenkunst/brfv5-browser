@@ -6,8 +6,8 @@ import { SystemUtils }            from '../utils/utils__system.js'
 import { toRadian }               from '../utils/utils__geom.js'
 
 import { Scene, Cache, PerspectiveCamera, WebGLRenderer, Group,
-  AmbientLight, Color, Vector3 }  from './three.module.r122.js'
-import * as THREE                 from './three.module.r122.js'
+  AmbientLight, Color, Vector3 }  from './three.module.r123.js'
+import * as THREE                 from './three.module.r123.js'
 
 export const ObjectLoader         = THREE.ObjectLoader
 export const FileLoader           = THREE.FileLoader
