@@ -5,7 +5,7 @@
   var camera                  = config.camera;
 
   brfv5.appId                 = 'com.tastenkunst.artov5.ext';
-  brfv5.pathModels            = './static-brfv5/';
+  brfv5.pathToModels          = './static-brfv5/';
 
   var parseGetParams = function() {
 

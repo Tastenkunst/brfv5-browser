@@ -7,7 +7,7 @@
   var pathTo3DModels          = './static-artov5/3d/';
   var pathTo3DModelTextures   = './static-artov5/3d/textures/';
 
-  var pathToOcclusionModel    = './static-artov5/3d/occlusion_head_reference.artov5';
+  var pathToOcclusionModel    = './static-artov5/3d/occlusion_head.artov5';
   var pathToOcclusionTextures = './static-artov5/3d/textures/';
 
   // We want a max of two views:
@@ -70,7 +70,7 @@
     views.push(view1);
 
     view0.loadModel(pathTo3DModels + 'rayban.artov5', pathTo3DModelTextures, 'black')
-    view1.loadModel(pathTo3DModels + 'earrings.artov5', pathTo3DModelTextures, 'silver')
+    view1.loadModel(pathTo3DModels + 'pearlearring_left.artov5', pathTo3DModelTextures)
   }
 
   api.switchToSingleView = function() {
