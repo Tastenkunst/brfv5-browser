@@ -20,17 +20,16 @@
  * more information.
  */
 
-import { setupExample }                     from './setup__example.js'
-import { trackCamera, trackImage }          from './setup__example.js'
+import { setupExample } from "./setup__example.js";
+import { trackCamera, trackImage } from "./setup__example.js";
 
-import { SystemUtils }                      from '../utils/utils__system.js'
+import { SystemUtils } from "../utils/utils__system.js";
 
 export const configureExample = (brfv5Config) => {
-
   // In most cases you only want to track one face. If you need to track more than one face
   // at a time, performance will be lower, because face tracking is a CPU intensive task.
 
-  brfv5Config.faceTrackingConfig.numFacesToTrack  = 1
+  brfv5Config.faceTrackingConfig.numFacesToTrack = 1;
 
   // numTrackingPasses: 3 (default), can either be 1, 2, 3, 4, 5 or 6.
   // 3 is a good trade-off between accuracy/stability and performance.
@@ -43,25 +42,23 @@ export const configureExample = (brfv5Config) => {
   // of head movement results in a bit of a performance loss, but it's most likely worth it.
   // Set it to false to restrict the head roll to -34 .. 0 .. 34 degrees.
 
-  brfv5Config.faceTrackingConfig.numTrackingPasses  = 3
-  brfv5Config.faceTrackingConfig.enableFreeRotation = true
-  brfv5Config.faceTrackingConfig.maxRotationZReset  = 999.0
-}
+  brfv5Config.faceTrackingConfig.numTrackingPasses = 3;
+  brfv5Config.faceTrackingConfig.enableFreeRotation = true;
+  brfv5Config.faceTrackingConfig.maxRotationZReset = 999.0;
+};
 
 export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
-
   // No special handling necessary.
   // 'return true' will draw the default face tracking results in setup__example.js
-  return true
-}
+  return true;
+};
 
 // Each example can specify a few example specific config values.
 
 const exampleConfig = {
-
   // See face_tracking__choose_model.js for more info about the models.
-  modelName:                '68l',
-  numChunksToLoad:          SystemUtils.isMobileOS ? 4 : 8,
+  modelName: "68l",
+  numChunksToLoad: SystemUtils.isMobileOS ? 4 : 8,
 
   // If true, numTrackingPasses and enableFreeRotation will be set dynamically depending
   // on the app's CPU usage. See brfv5__dynamic_performance.js for more insights.
@@ -69,31 +66,28 @@ const exampleConfig = {
 
   // onConfigure and onTracking are callbacks to setup example specific behaviour, eg.
   // for smile detection, PNG overlay or ThreeJS 3d object placement etc.
-  onConfigure:              configureExample,
-  onTracking:               handleTrackingResults
-}
+  onConfigure: configureExample,
+  onTracking: handleTrackingResults,
+};
 
 // run() will be called automatically after 1 second, if run isn't called immediately after the script was loaded.
 // Exporting it allows re-running the configuration from within other scripts.
 
-let timeoutId = -1
+let timeoutId = -1;
 
 export const run = () => {
+  clearTimeout(timeoutId);
+  setupExample(exampleConfig);
 
-  clearTimeout(timeoutId)
-  setupExample(exampleConfig)
-
-  if(window.selectedSetup === 'image') {
-
-    trackImage('./assets/tracking/' + window.selectedImage)
-
+  if (window.selectedSetup === "image") {
+    trackImage("./assets/tracking/" + window.selectedImage);
   } else {
-
-    trackCamera()
+    trackCamera();
   }
-}
+};
 
-timeoutId = setTimeout(function() { run() }, 1000)
+timeoutId = setTimeout(function () {
+  run();
+}, 1000);
 
-export default { run }
-
+export default { run };

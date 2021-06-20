@@ -1,138 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.75">
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/icons/app-logo-128x128.png"
+    />
 
-  <link rel="icon" type="image/png"                 href="./assets/icons/app-logo-128x128.png">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./assets/icons/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="./assets/icons/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./assets/icons/favicon-16x16.png"
+    />
 
-  <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32"   href="./assets/icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96"   href="./assets/icons/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16"   href="./assets/icons/favicon-16x16.png">
+    <link rel="icon" type="image/ico" href="./assets/icons/favicon.ico" />
 
-  <link rel="icon" type="image/ico"                 href="./assets/icons/favicon.ico">
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="./assets/icons/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="./assets/icons/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="./assets/icons/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="./assets/icons/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="./assets/icons/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="./assets/icons/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="./assets/icons/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="./assets/icons/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/icons/apple-icon-180x180.png"
+    />
 
-  <link rel="apple-touch-icon" sizes="57x57"        href="./assets/icons/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60"        href="./assets/icons/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72"        href="./assets/icons/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76"        href="./assets/icons/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114"      href="./assets/icons/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120"      href="./assets/icons/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144"      href="./assets/icons/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152"      href="./assets/icons/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180"      href="./assets/icons/apple-icon-180x180.png">
+    <title>
+      Beyond Reality Face SDK - BRFv5 - Face Tracking for Browser/JavaScript
+    </title>
 
-  <title>Beyond Reality Face SDK - BRFv5 - Face Tracking for Browser/JavaScript</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vw;
+        background-color: #ffffff;
+        -ms-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -webkit-text-size-adjust: none;
+      }
+    </style>
 
-  <style>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./js/highlight/highlight_tomorrow.css"
+    />
+    <script src="./js/highlight/highlight.pack.js"></script>
 
-    html, body {
-      margin: 0; padding: 0; width: 100vw; height: 100vw; background-color: #ffffff;
-      -ms-text-size-adjust: none; -moz-text-size-adjust: none; -webkit-text-size-adjust: none;
-    }
+    <link rel="stylesheet" type="text/css" href="./css/brfv5_examples.css" />
+    <link rel="stylesheet" type="text/css" href="./css/brfv5_select.css" />
+  </head>
 
-  </style>
+  <body>
+    <div id="__brfv5" class="__brfv5">
+      <button id="__btn_start">Start</button>
+      <button id="__btn_stop">Stop</button>
+      <div class="fixed tr10 ontop o6" style="width: 256px">
+        <div class="__brfv5_select_container">
+          <label for="__brfv5_select_example"></label>
 
-  <link rel="stylesheet" type="text/css" href="./js/highlight/highlight_tomorrow.css">
-  <script src="./js/highlight/highlight.pack.js"></script>
+          <select id="__brfv5_select_example">
+            <!-- See js/examples/, all examples use the camera setup (setup__camera__example.js) -->
 
-  <link rel="stylesheet" type="text/css" href="./css/brfv5_examples.css">
-  <link rel="stylesheet" type="text/css" href="./css/brfv5_select.css">
+            <option value="face_tracking__blink_detection">
+              Blink Detection (1 face)
+            </option>
 
-</head>
-
-<body>
-
-<div id="__brfv5" class="__brfv5">
-
-  <div class="fixed tr10 ontop o6" style="width: 256px">
-
-    <div class="__brfv5_select_container">
-
-      <label for="__brfv5_select_example"></label>
-
-      <select id="__brfv5_select_example">
-
-        <!-- See js/examples/, all examples use the camera setup (setup__camera__example.js) -->
-
-        <option value="face_detection__basics">Face Detection (Basics)</option>
-        <option value="face_detection__details">Face Detection (Details)</option>
-        <option value="face_detection__small_faces">Face Detection (Small faces)</option>
-        <option value="face_tracking__track_one_face" selected>Face Tracking (1 face)</option>
-        <option value="face_tracking__track_two_faces">Face Tracking (2 faces)</option>
-        <option value="face_tracking__choose_model">Choosing The Right Model</option>
-        <option value="face_tracking__region_of_interest">Region of Interest</option>
-        <option value="face_tracking__blink_detection">Blink Detection (1 face)</option>
-        <option value="face_tracking__smile_detection">Smile Detection (1 face)</option>
-        <option value="face_tracking__yawn_detection">Yawn Detection (1 face)</option>
-        <option value="face_tracking__face_extended#1">Extended Face Shape (1 face)</option>
-        <option value="face_tracking__face_extended#2">Extended Face Shape (2 faces)</option>
-        <option value="face_tracking__coloring_libs#1">Coloring Lips (1 face)</option>
-        <option value="face_tracking__coloring_libs#2">Coloring Lips (2 faces)</option>
-        <option value="face_tracking__png_overlay#1">PNG Overlay (1 face)</option>
-        <option value="face_tracking__png_overlay#2">PNG Overlay (2 faces)</option>
-
-        <!-- if face_tracking__threejs_overlay is manually set selected, 42l type model
+            <!-- if face_tracking__threejs_overlay is manually set selected, 42l type model
          will be loaded and some examples won't work as intended. Choose any other
          examples (selected) to also set 68l type model for ThreeJS. -->
 
-        <option value="face_tracking__threejs_overlay#1">ThreeJS Overlay (1 face)</option>
-        <option value="face_tracking__threejs_overlay#2">ThreeJS Overlay (2 faces)</option>
-        <option value="face_tracking__texture_overlay#1">Texture Overlay (1 face)</option>
-        <option value="face_tracking__texture_overlay#2">Texture Overlay (2 faces)</option>
-        <option value="face_tracking__texture_exporter">Texture Exporter</option>
-        <option value="face_tracking__texture_overlay_extended#1">Texture Overlay Extended (1 face)</option>
-        <option value="face_tracking__texture_overlay_extended#2">Texture Overlay Extended (2 faces)</option>
-        <option value="face_tracking__texture_exporter_extended">Texture Exporter Extended</option>
-        <option value="face_tracking__face_swap">Face Swap (2 faces)</option>
+            <!-- <option value="face_tracking__threejs_overlay#1">
+              ThreeJS Overlay (1 face)
+            </option>
+            <option value="face_tracking__threejs_overlay#2">
+              ThreeJS Overlay (2 faces)
+            </option>
+            <option value="face_tracking__texture_overlay#1">
+              Texture Overlay (1 face)
+            </option>
+            <option value="face_tracking__texture_overlay#2">
+              Texture Overlay (2 faces)
+            </option>
+            <option value="face_tracking__texture_exporter">
+              Texture Exporter
+            </option>
+            <option value="face_tracking__texture_overlay_extended#1">
+              Texture Overlay Extended (1 face)
+            </option>
+            <option value="face_tracking__texture_overlay_extended#2">
+              Texture Overlay Extended (2 faces)
+            </option>
+            <option value="face_tracking__texture_exporter_extended">
+              Texture Exporter Extended
+            </option>
+            <option value="face_tracking__face_swap">
+              Face Swap (2 faces)
+            </option> -->
+          </select>
+        </div>
 
-      </select>
+        <div class="__brfv5_select_container">
+          <label for="__brfv5_select_setup"></label>
 
-    </div>
+          <select id="__brfv5_select_setup">
+            <option value="camera" selected>Setup Camera</option>
+            <!-- <option value="image">Setup Image</option> -->
+          </select>
+        </div>
 
-    <div class="__brfv5_select_container">
+        <div class="__brfv5_select_container">
+          <label for="__brfv5_select_image"></label>
 
-      <label for="__brfv5_select_setup"></label>
+          <select id="__brfv5_select_image">
+            <option value="brfv5_portrait_marcel.jpg" selected>
+              Marcel (1 face)
+            </option>
+            <option value="brfv5_portrait_chris.jpg">Chris (1 face)</option>
+            <option value="brfv5_two_faces.jpg">
+              Marcel and Chris (2 faces)
+            </option>
+            <option value="brfv5_woman_old.jpg">Old woman (1 faces)</option>
+            <option value="brfv5_women_young.jpg">Two women (2 faces)</option>
+          </select>
+        </div>
+      </div>
 
-      <select id="__brfv5_select_setup">
-
-        <option value="camera" selected>Setup Camera</option>
-        <option value="image">Setup Image</option>
-
-      </select>
-
-    </div>
-
-    <div class="__brfv5_select_container">
-
-      <label for="__brfv5_select_image"></label>
-
-      <select id="__brfv5_select_image">
-
-        <option value="brfv5_portrait_marcel.jpg" selected>Marcel (1 face)</option>
-        <option value="brfv5_portrait_chris.jpg">Chris (1 face)</option>
-        <option value="brfv5_two_faces.jpg">Marcel and Chris (2 faces)</option>
-        <option value="brfv5_woman_old.jpg">Old woman (1 faces)</option>
-        <option value="brfv5_women_young.jpg">Two women (2 faces)</option>
-
-      </select>
-
-    </div>
-
-  </div>
-
-
-  <div id='__brfv5__code_container' class="swl mc bg-pb">
+      <!-- <div id='__brfv5__code_container' class="swl mc bg-pb">
 
     <pre><code class="javascript" id="__brfv5_code"></code></pre>
 
-  </div>
-</div>
+  </div> -->
+    </div>
 
-<script src="js/examples/setup__selects.js"></script>
-
-</body>
-
+    <script type="module" src="js/examples/setup__selects.js"></script>
+  </body>
 </html>
