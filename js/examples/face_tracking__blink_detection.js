@@ -13,7 +13,7 @@
  */
 
 import { setupExample } from "./setup__example.js";
-import { trackCamera, trackImage } from "./setup__example.js";
+import { trackCamera } from "./setup__example.js";
 
 import { drawCircles } from "../utils/utils__canvas.js";
 import { drawFaceDetectionResults } from "../utils/utils__draw_tracking_results.js";
@@ -135,7 +135,7 @@ const detectBlinkLeft = (lm, distances) => {
       _leftEyeBlinked = false;
     }, 150);
 
-    blinkTracker.track();
+    blinkTracker.addBlink();
     console.log("Blinking Running Average", blinkTracker.getRunningAvg());
   }
 };
@@ -164,7 +164,7 @@ const detectBlinkRight = (lm, distances) => {
       _rightEyeBlinked = false;
     }, 150);
 
-    blinkTracker.track();
+    blinkTracker.addBlink();
   }
 };
 

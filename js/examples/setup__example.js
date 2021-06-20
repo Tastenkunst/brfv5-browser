@@ -450,6 +450,6 @@ const onImageDataUpdate = (
 export default {
   setupExample,
   setExampleConfigValues,
-  trackImage,
+  // trackImage,
   trackCamera,
 };

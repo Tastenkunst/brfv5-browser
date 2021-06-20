@@ -1,0 +1,25 @@
+{
+  "name": "brfv5-browser-forked-ilias",
+  "version": "1.0.0",
+  "description": "### What is BRFv5?",
+  "main": "brfv5-nodejs-wrapper.js",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
+    "http-server": "^0.12.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iliaspit/brfv5-browser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Iliaspit/brfv5-browser/issues"
+  },
+  "homepage": "https://github.com/Iliaspit/brfv5-browser#readme"
+}
