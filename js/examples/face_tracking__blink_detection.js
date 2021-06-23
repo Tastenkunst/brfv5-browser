@@ -136,7 +136,7 @@ const detectBlinkLeft = (lm, distances) => {
     }, 150);
 
     blinkTracker.addBlink();
-    console.log("Blinking Running Average", blinkTracker.getRunningAvg());
+    console.log("Blinking Running Average", blinkTracker.getMovingAvg());
   }
 };
 

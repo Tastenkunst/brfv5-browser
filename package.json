@@ -6,7 +6,9 @@
   "dependencies": {
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
-    "http-server": "^0.12.3"
+    "export-to-csv": "^0.2.1",
+    "http-server": "^0.12.3",
+    "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -14,51 +14,62 @@ export const blinkTracker = (() => {
   let totalCount = 0;
   let trackingOn = false;
   let timer = 0;
-  let runningAvg;
+  let movingAvg;
   let isBenchmarking = false;
 
+  const startTracking = () => {
+    isBenchmarking = true;
+    trackingOn = true;
+    console.log("Benchmarking has begun");
+    console.log("Blink tracking has started successfully");
+
+    avgInterval = setInterval(function () {
+      // if (trackingOn) {
+      movingAvg = totalCount / timer;
+      // csvWriter
+      //   .writeRecords(data)
+      //   .then(() => console.log("The CSV file was written successfully"))
+      //   .catch((error) =>
+      //     console.log("Error occured while writting the CSV", error)
+      //   );
+
+      // }
+    }, 200);
+
+    timerInterval = setInterval(function () {
+      // if (trackingOn)
+      timer += 200;
+    }, 200);
+
+    setTimeout(() => {
+      isBenchmarking = false;
+      benchmark = movingAvg;
+      console.log(
+        "Benchmarking has been completed - the benchmark is:",
+        benchmark
+      );
+    }, 150000);
+  };
+
+  const stopTracking = () => {
+    trackingOn = false;
+    clearInterval(avgInterval);
+    clearInterval(timerInterval);
+  };
+
+  const addBlink = () => {
+    if (trackingOn) {
+      totalCount += 1;
+    }
+  };
+
   return {
-    startTracking: () => {
-      isBenchmarking = true;
-      trackingOn = true;
-      console.log("Benchmarking has begun");
-      console.log("Blink tracking has started successfully");
-
-      avgInterval = setInterval(function () {
-        runningAvg = totalCount / timer;
-        // csvWriter
-        //   .writeRecords(data)
-        //   .then(() => console.log("The CSV file was written successfully"))
-        //   .catch((error) =>
-        //     console.log("Error occured while writting the CSV", error)
-        //   );
-      }, 200);
-
-      timerInterval = setInterval(function () {
-        if (trackingOn) timer += 200;
-      }, 200);
-
-      setTimeout(() => {
-        isBenchmarking = false;
-        benchmark = runningAvg;
-        console.log(
-          "Benchmarking has been completed - the benchmark is:",
-          benchmark
-        );
-      }, 150000);
-    },
-    stopTracking: () => {
-      trackingOn = false;
-      clearInterval(avgInterval);
-      clearInterval(timerInterval);
-    },
-    addBlink: () => {
-      if (trackingOn) {
-        totalCount += 1;
-      }
-    },
+    startTracking,
+    stopTracking,
+    addBlink,
     getCount: () => totalCount,
-    getRunningAvg: () => runningAvg,
+    getMovingAvg: () => movingAvg,
     isBenchmarking: () => isBenchmarking,
+    shouldShowBiofeedback: () => movingAvg > benchmark,
   };
 })();
