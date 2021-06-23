@@ -210,10 +210,25 @@ const setupSelect = (select, onSelect) => {
 const setupButtons = (button, btnType) => {
   button.addEventListener("click", function (event) {
     event.preventDefault();
-    if (btnType == "start") {
+    const data = localStorage.getItem("allEntries");
+    if (btnType == "start" && !blinkTracker.tracking()) {
       blinkTracker.startTracking();
-    } else if (btnType === "stop") {
+    } else if (btnType === "stop" && blinkTracker.tracking()) {
       blinkTracker.stopTracking();
+    } else if (btnType === "download") {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+
+      const url = "http://localhost:3000/downloadCSV";
+
+      fetch(url, options).then((res) => {
+        console.log("Response for download was ", res.status);
+      });
     }
   });
 };
@@ -224,6 +239,7 @@ const selectImage = document.getElementById("__brfv5_select_image");
 
 const buttonStart = document.getElementById("__btn_start");
 const buttonStop = document.getElementById("__btn_stop");
+const buttonDownload = document.getElementById("__btn_download");
 
 preselectThreeJS(selectExample);
 
@@ -233,6 +249,7 @@ setupSelect(selectSetup, switchSetup);
 
 setupButtons(buttonStart, "start");
 setupButtons(buttonStop, "stop");
+setupButtons(buttonDownload, "download");
 
 // switchExample(selectExample.value)
 switchSetup(selectSetup.value);

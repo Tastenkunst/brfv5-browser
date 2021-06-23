@@ -4,15 +4,23 @@
   "description": "### What is BRFv5?",
   "main": "brfv5-nodejs-wrapper.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
+    "debug": "^4.3.1",
     "export-to-csv": "^0.2.1",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
     "http-server": "^0.12.3",
-    "isomorphic-fetch": "^3.0.0"
+    "isomorphic-fetch": "^3.0.0",
+    "jade": "^1.11.0"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "http-server"
+    "start": "http-server",
+    "start-custom-server": "node js/server/app.js"
   },
   "repository": {
     "type": "git",

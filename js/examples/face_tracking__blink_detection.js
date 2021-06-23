@@ -15,8 +15,8 @@
 import { setupExample } from "./setup__example.js";
 import { trackCamera } from "./setup__example.js";
 
-import { drawCircles } from "../utils/utils__canvas.js";
-import { drawFaceDetectionResults } from "../utils/utils__draw_tracking_results.js";
+// import { drawCircles } from "../utils/utils__canvas.js";
+// import { drawFaceDetectionResults } from "../utils/utils__draw_tracking_results.js";
 import { detectBlink } from "../utils/utils__blink_detection.js";
 import { blinkTracker } from "../utils/utils__blink_tracker.js";
 
@@ -57,13 +57,13 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
   const ctx = canvas.getContext("2d");
   const faces = brfv5Manager.getFaces();
 
-  let doDrawFaceDetection = false;
+  // let doDrawFaceDetection = false;
 
   for (let i = 0; i < faces.length; i++) {
     const face = faces[i];
 
     if (face.state === brfv5.BRFv5State.FACE_TRACKING) {
-      drawCircles(ctx, face.landmarks, colorPrimary, 2.0);
+      // drawCircles(ctx, face.landmarks, colorPrimary, 2.0);
 
       // Select the eye landmarks, then detect blinks for left and right individually:
 
@@ -83,29 +83,29 @@ export const handleTrackingResults = (brfv5Manager, brfv5Config, canvas) => {
       detectBlinkRight(rightEyeLandmarks, _rightEyeLidDistances, ctx);
 
       // White for blink, blue for no blink:
-      drawCircles(
-        ctx,
-        leftEyeLandmarks,
-        _leftEyeBlinked ? colorSecondary : colorPrimary,
-        3.0
-      );
-      drawCircles(
-        ctx,
-        rightEyeLandmarks,
-        _rightEyeBlinked ? colorSecondary : colorPrimary,
-        3.0
-      );
+      // drawCircles(
+      //   ctx,
+      //   leftEyeLandmarks,
+      //   _leftEyeBlinked ? colorSecondary : colorPrimary,
+      //   3.0
+      // );
+      // drawCircles(
+      //   ctx,
+      //   rightEyeLandmarks,
+      //   _rightEyeBlinked ? colorSecondary : colorPrimary,
+      //   3.0
+      // );
     } else {
       _leftEyeLidDistances.length = 0;
       _rightEyeLidDistances.length = 0;
 
-      doDrawFaceDetection = true;
+      // doDrawFaceDetection = true;
     }
   }
 
-  if (doDrawFaceDetection) {
-    drawFaceDetectionResults(brfv5Manager, brfv5Config, canvas);
-  }
+  // if (doDrawFaceDetection) {
+  //   drawFaceDetectionResults(brfv5Manager, brfv5Config, canvas);
+  // }
 
   return false;
 };

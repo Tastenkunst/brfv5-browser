@@ -7,9 +7,13 @@
 //   ],
 // });
 
+import { addEntry } from "../utils/utils__add_to_local_storage.js";
+
 export const blinkTracker = (() => {
   let avgInterval;
   let timerInterval;
+  let benchmarkTimeout;
+  let experimentTimeout;
   let benchmark;
   let totalCount = 0;
   let trackingOn = false;
@@ -18,43 +22,61 @@ export const blinkTracker = (() => {
   let isBenchmarking = false;
 
   const startTracking = () => {
+    localStorage.clear();
     isBenchmarking = true;
     trackingOn = true;
     console.log("Benchmarking has begun");
     console.log("Blink tracking has started successfully");
 
     avgInterval = setInterval(function () {
-      // if (trackingOn) {
       movingAvg = totalCount / timer;
-      // csvWriter
-      //   .writeRecords(data)
-      //   .then(() => console.log("The CSV file was written successfully"))
-      //   .catch((error) =>
-      //     console.log("Error occured while writting the CSV", error)
-      //   );
 
-      // }
+      addEntry({
+        timer,
+        movingAvg,
+        feedbackShown: benchmark && shouldShowBiofeedback(),
+        benchmark: benchmark && benchmark,
+      });
     }, 200);
 
     timerInterval = setInterval(function () {
-      // if (trackingOn)
       timer += 200;
     }, 200);
 
-    setTimeout(() => {
+    benchmarkTimeout = setTimeout(() => {
       isBenchmarking = false;
       benchmark = movingAvg;
+
+      addEntry({
+        timer,
+        movingAvg,
+        feedbackShown: false,
+        benchmark,
+      });
+
       console.log(
         "Benchmarking has been completed - the benchmark is:",
         benchmark
       );
+
+      experimentTimeout = setTimeout(() => {
+        trackingOn = false;
+        clearInterval(avgInterval);
+        clearInterval(timerInterval);
+        clearTimeout(benchmarkTimeout);
+
+        console.log("The experiment has now been completed");
+      }, 150000);
     }, 150000);
   };
 
   const stopTracking = () => {
+    localStorage.clear();
     trackingOn = false;
     clearInterval(avgInterval);
     clearInterval(timerInterval);
+    clearTimeout(benchmarkTimeout);
+    console.log("The experiment was stopped - all data have now been deleted");
   };
 
   const addBlink = () => {
@@ -63,6 +85,8 @@ export const blinkTracker = (() => {
     }
   };
 
+  const shouldShowBiofeedback = () => movingAvg > benchmark;
+
   return {
     startTracking,
     stopTracking,
@@ -70,6 +94,7 @@ export const blinkTracker = (() => {
     getCount: () => totalCount,
     getMovingAvg: () => movingAvg,
     isBenchmarking: () => isBenchmarking,
-    shouldShowBiofeedback: () => movingAvg > benchmark,
+    shouldShowBiofeedback,
+    tracking: () => trackingOn,
   };
 })();
