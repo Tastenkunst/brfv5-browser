@@ -210,25 +210,24 @@ const setupSelect = (select, onSelect) => {
 const setupButtons = (button, btnType) => {
   button.addEventListener("click", function (event) {
     event.preventDefault();
-    const data = localStorage.getItem("allEntries");
     if (btnType == "start" && !blinkTracker.tracking()) {
       blinkTracker.startTracking();
     } else if (btnType === "stop" && blinkTracker.tracking()) {
       blinkTracker.stopTracking();
     } else if (btnType === "download") {
+      const data = localStorage.getItem("allEntries");
       const options = {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(data),
       };
 
       const url = "http://localhost:3000/downloadCSV";
 
-      fetch(url, options).then((res) => {
-        console.log("Response for download was ", res.status);
-      });
+      fetch(url, options)
+        .then((res) => {
+          console.log("Response for download was ", res.status);
+        })
+        .catch((err) => console.log("hiilias error:", err));
     }
   });
 };

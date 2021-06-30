@@ -52,6 +52,8 @@ app.post("/downloadCSV", (req, res, next) => {
   console.log("hi ilias", data);
   console.log("hi ilias body", req.body);
   exportToCsv(data);
+  console.log("hi ilias data exported");
+  res.header("Access-Control-Allow-Origin", "*");
   res.json({ status: "success" });
 });
 
