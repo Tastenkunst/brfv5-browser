@@ -218,7 +218,6 @@ const setupButtons = (button, btnType) => {
       const data = localStorage.getItem("allEntries");
       const options = {
         method: "POST",
-        // mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
