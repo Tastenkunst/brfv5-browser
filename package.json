@@ -20,7 +20,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "http-server",
-    "start-custom-server": "node js/server/app.js"
+    "start-custom-server": "NODE_OPTIONS='--inspect' node js/server/app.js"
   },
   "repository": {
     "type": "git",

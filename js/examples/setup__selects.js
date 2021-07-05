@@ -218,7 +218,11 @@ const setupButtons = (button, btnType) => {
       const data = localStorage.getItem("allEntries");
       const options = {
         method: "POST",
-        body: JSON.stringify(data),
+        // mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ de: "hi" }),
       };
 
       const url = "http://localhost:3000/downloadCSV";
