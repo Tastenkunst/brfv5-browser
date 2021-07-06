@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var cors = require("cors");
+var fs = require("fs");
 
 var { ExportToCsv } = require("export-to-csv");
 
@@ -18,11 +19,21 @@ const exportToCsv = (localStorage) => {
     useTextFile: false,
     useBom: true,
     useKeysAsHeaders: true,
+    // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
   };
 
   const csvExporter = new ExportToCsv(options);
 
-  return csvExporter.generateCsv(localStorage);
+  const x = csvExporter.generateCsv(localStorage, true);
+
+  fs.writeFile("./myAwesomeCSV.csv", x, function (err) {
+    if (err) throw err;
+    console.log("ILIAS SUCCESSFULLY WRITTEN");
+  });
+
+  // const csvExporter = new ExportToCsv(options);
+
+  // return csvExporter.generateCsv(localStorage);
 };
 
 var app = express();
@@ -43,6 +54,7 @@ app.post("/downloadCSV", (req, res, next) => {
   console.log("hi ilias body", req.body);
 
   exportToCsv(data);
+
   console.log("hi ilias data exported");
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
@@ -62,6 +74,8 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  console.log("hi ilias error", err);
 
   // render the error page
   res.status(err.status || 500);

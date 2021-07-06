@@ -221,7 +221,7 @@ const setupButtons = (button, btnType) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ de: "hi" }),
+        body: data,
       };
 
       const url = "http://localhost:3000/downloadCSV";
